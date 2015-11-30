@@ -2,7 +2,7 @@ breed [cicadas cicada]
 breed [predators predator]
 breed [preys prey]
 
-globals [month begin-month end-month]
+globals [month begin-month end-month lf-duration-days]
 
 to setup
   clear-all
@@ -21,6 +21,7 @@ to time-variables
   set month (ticks-a-year / 12)
   set begin-month (month * 4) ;; considerei as cicadas emergem durante um mês (finais de abril a inicios de maio). estou a considerar que a simulação começa no inicio de um ano.
   set end-month (month * 5)
+  set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)
 end
 
 to setup-cicadas
@@ -37,7 +38,7 @@ to move-cicadas
 end
 
 to emergence
-  ifelse (ticks mod ticks-a-year) > begin-month and (ticks mod ticks-a-year) < end-month and [hidden?] of cicada 1
+  ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and [hidden?] of cicada 1
     [ask cicadas [set hidden? false]] ;; se estiverem dentro do periodo de emergência, emergem.
     [ask cicadas [set hidden? true]]
 end
@@ -127,7 +128,7 @@ initial-lifecycle-t
 initial-lifecycle-t
 1
 30
-1
+2
 1
 1
 NIL
