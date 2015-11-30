@@ -2,7 +2,8 @@ breed [cicadas cicada]
 breed [predators predator]
 breed [preys prey]
 
-globals [month begin-month end-month lf-duration-days]
+globals [month begin-month end-month]
+cicadas-own [lf-duration-ticks]
 
 to setup
   clear-all
@@ -14,6 +15,7 @@ end
 to go
   move-cicadas
   emergence
+  reprodution
   tick
 end
 
@@ -21,13 +23,13 @@ to time-variables
   set month (ticks-a-year / 12)
   set begin-month (month * 4) ;; considerei as cicadas emergem durante um mês (finais de abril a inicios de maio). estou a considerar que a simulação começa no inicio de um ano.
   set end-month (month * 5)
-  set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)
 end
 
 to setup-cicadas
   create-cicadas n-cicadas [ setxy random-xcor random-ycor ]
   ask cicadas [set color green
-               set hidden? true] ;; cicadas começam enterradas
+               set hidden? true ;; cicadas começam enterradas
+               set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)] ;; lifecycle duration in ticks
 end
 
 to move-cicadas
@@ -38,9 +40,27 @@ to move-cicadas
 end
 
 to emergence
-  ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and [hidden?] of cicada 1
-    [ask cicadas [set hidden? false]] ;; se estiverem dentro do periodo de emergência, emergem.
-    [ask cicadas [set hidden? true]]
+  ask cicadas [
+    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and [hidden?] of cicada 1
+      [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
+      [set hidden? true]
+  ]
+end
+
+to reprodution
+  mutation
+end
+
+to mutation
+  ask cicadas [
+    if (ticks mod lf-duration-ticks) = begin-month
+      [if mutation-rate-cicadas <= (random 100) + 1
+        [ifelse random 100 < 50
+          [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
+          [if lf-duration-ticks != 1 [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]]
+        ]
+      ]
+   ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -144,6 +164,21 @@ ticks-a-year
 1
 0
 Number
+
+SLIDER
+217
+104
+389
+137
+mutation-rate-cicadas
+mutation-rate-cicadas
+0
+100
+1
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
