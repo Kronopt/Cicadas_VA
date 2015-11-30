@@ -14,8 +14,8 @@ end
 
 to go
   move-cicadas
-  emergence
   reprodution
+  emergence
   tick
 end
 
@@ -24,6 +24,10 @@ to time-variables
   set begin-month (month * 4) ;; considerei as cicadas emergem durante um mês (finais de abril a inicios de maio). estou a considerar que a simulação começa no inicio de um ano.
   set end-month (month * 5)
 end
+
+
+;; ----------------------------------- CICADAS STUFF -----------------------------
+
 
 to setup-cicadas
   create-cicadas n-cicadas [ setxy random-xcor random-ycor ]
@@ -48,19 +52,25 @@ to emergence
 end
 
 to reprodution
-  mutation
+  ask cicadas
+    [if (ticks mod lf-duration-ticks) = begin-month
+      [birth]
+    ]
 end
 
+;; com probabilidade mutation-rate-cicadas % alteram a duração do seu ciclo de vida, para mais ou menos 1 ano
 to mutation
-  ask cicadas [
-    if (ticks mod lf-duration-ticks) = begin-month
-      [if mutation-rate-cicadas <= (random 100) + 1
-        [ifelse random 100 < 50
-          [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
-          [if lf-duration-ticks != 1 [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]]
-        ]
-      ]
-   ]
+  if mutation-rate-cicadas <= (random-float 100)
+    [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
+      [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
+      [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
+    ]
+end
+
+;; each cicadas has cicadas-progeny children and dies. each child can suffer mutation
+to birth
+  mutation
+  hatch (cicadas-progeny - 1) [mutation]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -116,7 +126,7 @@ n-cicadas
 n-cicadas
 0
 100
-88
+100
 1
 1
 NIL
@@ -173,12 +183,23 @@ SLIDER
 mutation-rate-cicadas
 mutation-rate-cicadas
 0
-100
-1
-1
+20
+1.53
+0.01
 1
 NIL
 HORIZONTAL
+
+INPUTBOX
+25
+288
+180
+348
+cicadas-progeny
+1
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
