@@ -45,7 +45,7 @@ end
 
 to emergence
   ask cicadas [
-    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and [hidden?] of cicada 1
+    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and hidden?
       [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
       [set hidden? true]
   ]
@@ -74,10 +74,10 @@ to birth
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-451
-13
-890
-473
+576
+28
+1015
+488
 16
 16
 13.0
@@ -101,10 +101,10 @@ ticks
 30.0
 
 BUTTON
-16
-36
-79
-69
+17
+10
+80
+43
 NIL
 setup
 NIL
@@ -118,10 +118,10 @@ NIL
 1
 
 SLIDER
-10
-103
-182
-136
+15
+55
+187
+88
 n-cicadas
 n-cicadas
 0
@@ -133,10 +133,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-103
-41
-166
-74
+93
+10
+156
+43
 NIL
 go
 T
@@ -150,10 +150,10 @@ NIL
 0
 
 SLIDER
-14
-158
-186
-191
+15
+142
+187
+175
 initial-lifecycle-t
 initial-lifecycle-t
 1
@@ -165,10 +165,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-16
-208
-273
-268
+12
+186
+269
+246
 ticks-a-year
 360
 1
@@ -176,10 +176,10 @@ ticks-a-year
 Number
 
 SLIDER
-217
-104
-389
-137
+15
+97
+187
+130
 mutation-rate-cicadas
 mutation-rate-cicadas
 0
@@ -191,15 +191,33 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-25
-288
-180
-348
+12
+256
+167
+316
 cicadas-progeny
 1
 1
 0
 Number
+
+PLOT
+9
+322
+315
+510
+Cicadas Lifecycle's Duration
+Duration
+Number of Cicadas
+0.0
+2000.0
+0.0
+100.0
+true
+false
+"set-plot-x-range 0 20\nset-plot-y-range 0 count cicadas" ""
+PENS
+"N Cicadas" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
 @#$#@#$#@
 ## WHAT IS IT?
