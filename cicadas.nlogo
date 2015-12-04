@@ -69,8 +69,8 @@ end
 
 ;; each cicadas has cicadas-progeny children and dies. each child can suffer mutation
 to birth
-  mutation
-  hatch (cicadas-progeny - 1) [mutation]
+  hatch (cicadas-progeny) [mutation]
+  die
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -218,6 +218,17 @@ false
 "set-plot-x-range 0 20\nset-plot-y-range 0 count cicadas" ""
 PENS
 "N Cicadas" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
+
+MONITOR
+218
+67
+335
+112
+Number of Cicadas
+count cicadas
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
