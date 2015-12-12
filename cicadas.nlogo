@@ -577,6 +577,29 @@ NetLogo 5.2.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="Cicadas Lifecycle's Duration" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <exitCondition>ticks = 20000</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1.53"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="360"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="100"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
