@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
-data = open('Simulation_Data\cicadas.csv', 'r').readlines()
+dataf = open('Simulation_Data\cicadas.csv', 'r')
+data = dataf.readlines()
 
 data = data[15][2:-1].split('","')
 
@@ -22,4 +23,4 @@ for i in range(0, len(data)):
     plt.xticks(range(minduration, maxduration + 1))
     plt.savefig('Plots\\test' + str(i + 1) + '.png')
 
-data.close()
+dataf.close()
