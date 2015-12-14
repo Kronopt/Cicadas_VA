@@ -14,6 +14,7 @@ to go
   move-cicadas
   reprodution
   emergence
+  death
   tick
 end
 
@@ -58,12 +59,21 @@ to reprodution
   ask cicadas [
     if hidden? = false and reproductive = true [
        let mate one-of cicadas-on neighbors
-       if mate != nobody and [hidden?] of mate = false
+       if mate != nobody and [hidden?] of mate = false and [reproductive] of mate = true
           [hatch cicadas-progeny [set reproductive false]]
        ;; die
     ]]
 end
 
+to death ;; adults die in the end of emergence period
+  if ticks > end-month [
+    ask cicadas [
+      if (ticks mod lf-duration-ticks) = end-month and reproductive = true [
+        die
+      ]
+    ]
+  ]
+end
 
 
 
