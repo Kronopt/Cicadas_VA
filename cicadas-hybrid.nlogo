@@ -15,6 +15,7 @@ to go
   reprodution
   emergence
   death
+  grow
   tick
 end
 
@@ -59,10 +60,11 @@ to reprodution
   ask cicadas [
     if hidden? = false and reproductive = true [
        let mate one-of cicadas-on neighbors
-       if mate != nobody and [hidden?] of mate = false and [reproductive] of mate = true
-          [hatch cicadas-progeny [set reproductive false]]
-       ;; die
-    ]]
+       if mate != nobody [
+         while [[hidden?] of mate = true and [reproductive] of mate = false]
+             [set mate one-of cicadas-on neighbors]
+         hatch cicadas-progeny [set reproductive false]
+    ]]]
 end
 
 to death ;; adults die in the end of emergence period
@@ -70,9 +72,7 @@ to death ;; adults die in the end of emergence period
     ask cicadas [
       if (ticks mod lf-duration-ticks) = end-month and reproductive = true [
         die
-      ]
-    ]
-  ]
+      ]]]
 end
 
 to grow
@@ -131,7 +131,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-20
+10
 1
 0
 Number
