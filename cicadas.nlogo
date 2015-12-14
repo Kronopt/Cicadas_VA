@@ -5,6 +5,7 @@ breed [preys prey]
 globals [month begin-month end-month]
 cicadas-own [lf-duration-ticks]
 
+
 to setup
   clear-all
   setup-cicadas
@@ -45,7 +46,7 @@ end
 
 to emergence
   ask cicadas [
-    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month and hidden?
+    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month
       [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
       [set hidden? true]
   ]
@@ -125,8 +126,8 @@ SLIDER
 n-cicadas
 n-cicadas
 0
-100
-100
+500
+500
 1
 1
 NIL
@@ -158,7 +159,7 @@ initial-lifecycle-t
 initial-lifecycle-t
 1
 30
-2
+1
 1
 1
 NIL
@@ -581,7 +582,7 @@ NetLogo 5.2.1
   <experiment name="Cicadas Lifecycle's Duration" repetitions="5" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <exitCondition>ticks = 20000</exitCondition>
+    <exitCondition>ticks = 79862</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="mutation-rate-cicadas">
       <value value="1.53"/>
