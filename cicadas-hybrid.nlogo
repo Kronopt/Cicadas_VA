@@ -75,6 +75,14 @@ to death ;; adults die in the end of emergence period
   ]
 end
 
+to grow
+  ask cicadas [
+    if (ticks mod lf-duration-ticks) = end-month [
+      set reproductive true
+    ]
+  ]
+end
+
 
 
 
