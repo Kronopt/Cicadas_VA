@@ -82,7 +82,8 @@ to cicadas-reprodution
   ask cicadas
     [if (ticks mod lf-duration-ticks) = begin-month [
       if random 100 < cicadas-reproduction-rate
-        [birth]
+        [hatch (cicadas-progeny) [mutation]
+         die]
      ]
     ]
 end
@@ -96,11 +97,6 @@ to mutation
     ]
 end
 
-;; each cicadas has cicadas-progeny children and dies. each child can suffer mutation
-to birth
-  hatch (cicadas-progeny) [mutation]
-  die
-end
 
 ;; -------------------------- Predator Stuff -------------------------------------
 
@@ -111,7 +107,7 @@ to setup-predators
     setxy random-xcor random-ycor
     set color brown
     set size 2.5
-    set lf-duration-ticks ( ticks-a-year * initial-lifecycle-t-predators)
+    set lf-duration-ticks ( ticks-a-year * initial-lifecycle-t-predators )
     set energy predator-start-energy
     ]
 end
@@ -201,7 +197,7 @@ n-cicadas
 n-cicadas
 0
 1000
-204
+306
 1
 1
 NIL
@@ -259,7 +255,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-1.53
+2.93
 0.01
 1
 NIL
@@ -290,7 +286,7 @@ Number of Cicadas
 100.0
 true
 false
-"set-plot-x-range 0 20\nset-plot-y-range 0 count cicadas" ""
+"set-plot-x-range 0 25\nset-plot-y-range 0 count cicadas" ""
 PENS
 "N Cicadas" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
@@ -358,7 +354,7 @@ mutation-rate-predators
 mutation-rate-predators
 0
 20
-1.53
+2
 0.01
 1
 NIL
@@ -373,7 +369,7 @@ predator-full-energy
 predator-full-energy
 0
 50
-20
+10
 1
 1
 NIL
@@ -414,22 +410,22 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-50
+100
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-201
-146
-395
-179
+194
+137
+388
+170
 initial-lifecycle-t-predators
 initial-lifecycle-t-predators
 0
 20
-2
+1
 1
 1
 NIL
