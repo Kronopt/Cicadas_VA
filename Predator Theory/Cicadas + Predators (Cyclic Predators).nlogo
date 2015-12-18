@@ -74,7 +74,7 @@ to setup-cicadas
   create-cicadas n-cicadas [ setxy random-xcor random-ycor ]
   ask cicadas [set color green
                set hidden? true                                            ;; cicadas começam enterradas
-               set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)] ;; lifecycle duration in ticks
+               set lf-duration-ticks (ticks-a-year * initial-lifecycle-t-cicadas)] ;; lifecycle duration in ticks
 end
 
 
@@ -111,7 +111,7 @@ to setup-predators
     setxy random-xcor random-ycor
     set color brown
     set size 2.5
-    set lf-duration-ticks ( ticks-a-year * initial-lifecycle-t )  ;; em vez de 3, começa com um ciclo igual à das cicadas
+    set lf-duration-ticks ( ticks-a-year * initial-lifecycle-t-predators)
     set energy predator-start-energy
     ]
 end
@@ -201,7 +201,7 @@ n-cicadas
 n-cicadas
 0
 1000
-185
+204
 1
 1
 NIL
@@ -227,10 +227,10 @@ NIL
 SLIDER
 15
 142
-187
+188
 175
-initial-lifecycle-t
-initial-lifecycle-t
+initial-lifecycle-t-cicadas
+initial-lifecycle-t-cicadas
 1
 30
 1
@@ -332,7 +332,7 @@ initial-percentage-of-predators
 initial-percentage-of-predators
 0
 100
-9
+1
 1
 1
 NIL
@@ -372,8 +372,8 @@ SLIDER
 predator-full-energy
 predator-full-energy
 0
-10
-6
+50
+20
 1
 1
 NIL
@@ -415,6 +415,21 @@ cicadas-reproduction-rate
 0
 100
 50
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+201
+146
+395
+179
+initial-lifecycle-t-predators
+initial-lifecycle-t-predators
+0
+20
+2
 1
 1
 NIL
