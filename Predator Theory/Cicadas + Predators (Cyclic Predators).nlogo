@@ -1,6 +1,5 @@
 breed [cicadas cicada]
 breed [predators predator]
-breed [preys prey]
 
 globals [month begin-month end-month]
 cicadas-own [lf-duration-ticks]
@@ -12,7 +11,7 @@ to setup
   clear-all
   setup-cicadas
   setup-predators
-  setup-patches ;; isto é necessário?
+  ;; setup-patches ;; isto é necessário?
   time-variables
   reset-ticks
 end
@@ -25,7 +24,7 @@ to go
   ask predators [predator-eat]
   cicadas-reprodution
   predator-reproduction
-  patches-check-cicadas ;; isto é necessário?
+  ;; patches-check-cicadas ;; isto é necessário?
   emergence
   tick
 end
@@ -170,8 +169,8 @@ GRAPHICS-WINDOW
 16
 -16
 16
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -202,7 +201,7 @@ n-cicadas
 n-cicadas
 0
 1000
-516
+185
 1
 1
 NIL
@@ -246,7 +245,7 @@ INPUTBOX
 84
 246
 ticks-a-year
-360
+60
 1
 0
 Number
@@ -320,7 +319,7 @@ Number of Predators
 10.0
 true
 false
-"set-plot-x-range 0 20\nset-plot-y-range 0 count cicadas" ""
+"set-plot-x-range 0 20\nset-plot-y-range 0 count predators" ""
 PENS
 "default" 1.0 1 -16777216 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of predators)"
 
@@ -333,7 +332,7 @@ initial-percentage-of-predators
 initial-percentage-of-predators
 0
 100
-1
+9
 1
 1
 NIL
@@ -415,7 +414,7 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-65
+50
 1
 1
 NIL
@@ -786,9 +785,7 @@ NetLogo 5.2.1
     <enumeratedValueSet variable="cicadas-progeny">
       <value value="1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="n-cicadas">
-      <value value="100"/>
-    </enumeratedValueSet>
+    <steppedValueSet variable="n-cicadas" first="20" step="1" last="100"/>
   </experiment>
 </experiments>
 @#$#@#$#@
