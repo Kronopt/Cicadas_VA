@@ -1,5 +1,9 @@
 import matplotlib.pyplot as plt
+# from sys import argv
 
+# filename = argv[1]
+
+# dataf = open(filename, 'r')
 dataf = open('Simulation_Data\cicadas.csv', 'r')
 data = dataf.readlines()
 

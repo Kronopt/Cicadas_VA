@@ -52,3 +52,5 @@ Temporary Items
 *.png
 *.png
 *.png
+Simulation_Data/test-group-size
+*.png

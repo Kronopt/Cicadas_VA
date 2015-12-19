@@ -11,20 +11,18 @@ to setup
   clear-all
   setup-cicadas
   setup-predators
-  ;; setup-patches ;; isto é necessário?
   time-variables
   reset-ticks
 end
 
 to go
-  if not any? predators [  ;; caso os predadores morram todos (por alguma razão) estes são criados de novo ;; isto é necessário? não consigo prever o comportamento disto se for activado a meio da simulação ou assim
+  if not any? predators [  ;; caso os predadores morram todos (por alguma razão) estes são criados de novo
    setup-predators
    ]
   move
   ask predators [predator-eat]
   cicadas-reprodution
   predator-reproduction
-  ;; patches-check-cicadas ;; isto é necessário?
   emergence
   tick
 end
@@ -80,7 +78,7 @@ end
 
 to cicadas-reprodution
   ask cicadas
-    [if (ticks mod lf-duration-ticks) = begin-month [
+    [if (ticks mod lf-duration-ticks) = end-month [
       if random 100 < cicadas-reproduction-rate
         [hatch (cicadas-progeny) [mutation]
          die]
@@ -114,7 +112,7 @@ end
 
 to predator-reproduction
   ask predators [
-    if (ticks mod lf-duration-ticks) = begin-month [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
+    if (ticks mod lf-duration-ticks) = end-month [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
       if random 100 < predator-reprodution-rate [         ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
         hatch energy [
           predator-mutation
@@ -197,7 +195,7 @@ n-cicadas
 n-cicadas
 0
 1000
-306
+427
 1
 1
 NIL
@@ -255,7 +253,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-2.93
+1.02
 0.01
 1
 NIL
@@ -354,7 +352,7 @@ mutation-rate-predators
 mutation-rate-predators
 0
 20
-2
+1.06
 0.01
 1
 NIL
@@ -369,7 +367,7 @@ predator-full-energy
 predator-full-energy
 0
 50
-10
+13
 1
 1
 NIL
@@ -384,7 +382,7 @@ predator-reprodution-rate
 predator-reprodution-rate
 0
 100
-50
+59
 1
 1
 NIL
@@ -410,7 +408,7 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-100
+80
 1
 1
 NIL
