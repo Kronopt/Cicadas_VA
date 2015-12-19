@@ -20,7 +20,7 @@ to go
    setup-predators
    ]
   move
-  ask predators [predator-eat]
+  predator-eat
   cicadas-reprodution
   predator-reproduction
   emergence
@@ -135,10 +135,14 @@ to predator-mutation
 end
 
 to predator-eat
-  let i one-of cicadas-here
-  if i != nobody and [hidden?] of i = false and energy < predator-full-energy [  ;; já não consegue comer se a sua energia for menos que predator-full-energy
-    ask i [die]
-    set energy ( energy + 1 )
+  ask predators [
+    if hidden? = false [
+      let i one-of cicadas-here
+      if i != nobody and [hidden?] of i = false and energy < predator-full-energy [  ;; já não consegue comer se a sua energia for menos que predator-full-energy
+         ask i [die]
+         set energy ( energy + 1 )
+      ]
+    ]
   ]
 end
 @#$#@#$#@
