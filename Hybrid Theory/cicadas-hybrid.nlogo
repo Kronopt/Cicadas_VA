@@ -88,14 +88,12 @@ to check-population-size
   ask cicadas  [
       if (ticks mod lf-duration-ticks) = end-month + 1 [
            let d lf-duration-ticks
-           if count cicadas with [lf-duration-ticks = d] > 2000 [
+           if count cicadas with [lf-duration-ticks = d] > max-cicadas-per-group [
               die
            ]
          ]
       ]
 end
-
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 486
@@ -214,9 +212,9 @@ Number of Cicadas
 2000.0
 0.0
 100.0
-true
 false
-"set-plot-x-range 0 20\nset-plot-y-range 0 count cicadas" ""
+false
+"set-plot-x-range 0 20\nset-plot-y-range 0 max-cicadas-per-group" ""
 PENS
 "default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
@@ -252,6 +250,17 @@ count cicadas with [hidden? = false]
 17
 1
 11
+
+INPUTBOX
+328
+141
+483
+201
+max-cicadas-per-group
+200
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
