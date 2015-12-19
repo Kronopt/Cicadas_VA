@@ -77,19 +77,18 @@ end
 
 
 to cicadas-reprodution
-  ask cicadas
-    [if (ticks mod lf-duration-ticks) = end-month [
-      if random 100 < cicadas-reproduction-rate
-        [hatch (cicadas-progeny) [mutation]
-         die]
-     ]
-    ]
+  ask cicadas [
+      if (ticks mod lf-duration-ticks) = end-month and random 100 < cicadas-reproduction-rate [
+          hatch (cicadas-progeny) [mutation]
+          die
+      ]
+   ]
 end
 
 ;; com probabilidade mutation-rate-cicadas % alteram a duração do seu ciclo de vida, para mais ou menos 1 ano
 to mutation
   if mutation-rate-cicadas <= (random-float 100)
-    [ifelse random 100 < cicadas-reproduction-rate ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
+    [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
       [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
       [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
     ]
@@ -110,17 +109,16 @@ to setup-predators
     ]
 end
 
+
 to predator-reproduction
   ask predators [
-    if (ticks mod lf-duration-ticks) = end-month [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
-      if random 100 < predator-reprodution-rate [         ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
-        hatch energy [
+    if (ticks mod lf-duration-ticks) = begin-month and random 100 < predator-reprodution-rate [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
+        hatch energy [             ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
           predator-mutation
           set energy predator-start-energy
           right random-float 360
           forward 1
           ]
-        ]
       die
       ]
     ]
@@ -128,7 +126,7 @@ end
 
 to predator-mutation
   if random-float 100 <= mutation-rate-predators [
-    ifelse random 100 < predator-reprodution-rate
+    ifelse random 100 < 50
     [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
     [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]]
     ]
@@ -199,7 +197,7 @@ n-cicadas
 n-cicadas
 0
 1000
-427
+510
 1
 1
 NIL
@@ -257,7 +255,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-1.02
+2.68
 0.01
 1
 NIL
@@ -371,7 +369,7 @@ predator-full-energy
 predator-full-energy
 0
 50
-13
+5
 1
 1
 NIL
@@ -386,7 +384,7 @@ predator-reprodution-rate
 predator-reprodution-rate
 0
 100
-59
+49
 1
 1
 NIL
@@ -412,7 +410,7 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-80
+51
 1
 1
 NIL
@@ -432,6 +430,47 @@ initial-lifecycle-t-predators
 1
 NIL
 HORIZONTAL
+
+SLIDER
+428
+183
+601
+216
+max-cicadas-per-cycle
+max-cicadas-per-cycle
+100
+1000
+1000
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+421
+226
+608
+259
+max-predators-per-cycle
+max-predators-per-cycle
+0
+500
+61
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+627
+124
+884
+169
+NIL
+count cicadas with [lf-duration-ticks = 120]
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
