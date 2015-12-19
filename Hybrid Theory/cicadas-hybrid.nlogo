@@ -1,6 +1,6 @@
 breed [cicadas cicada]
 
-globals [month begin-month end-month]
+globals [month begin-month end-month ]
 cicadas-own [lf-duration-ticks reproductive]
 
 to setup
@@ -16,6 +16,7 @@ to go
   emergence
   death
   grow
+  check-population-size
   tick
 end
 
@@ -83,6 +84,16 @@ to grow
   ]
 end
 
+to check-population-size
+  ask cicadas  [
+      if (ticks mod lf-duration-ticks) = end-month + 1 [
+           let d lf-duration-ticks
+           if count cicadas with [lf-duration-ticks = d] > 2000 [
+              die
+           ]
+         ]
+      ]
+end
 
 
 @#$#@#$#@
