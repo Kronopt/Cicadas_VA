@@ -1,7 +1,7 @@
 breed [cicadas cicada]
 
 globals [month begin-month end-month ]
-cicadas-own [lf-duration-ticks reproductive]
+cicadas-own [lf-duration-ticks adult]
 
 to setup
   clear-all
@@ -35,7 +35,7 @@ to setup-cicadas
       set color green
       set hidden? true
       set lf-duration-ticks (ticks-a-year * ?)
-      set reproductive true]]
+      set adult true]]
 end
 
 
@@ -59,19 +59,19 @@ end
 
 to reprodution
   ask cicadas [
-    if hidden? = false and reproductive = true [
+    if hidden? = false and adult = true [
        let mate one-of cicadas-on neighbors
        if mate != nobody [
-         while [[hidden?] of mate = true and [reproductive] of mate = false]
+         while [[hidden?] of mate = true and [adult] of mate = false]
              [set mate one-of cicadas-on neighbors]
-         hatch cicadas-progeny [set reproductive false]
+         hatch cicadas-progeny [set adult false]
     ]]]
 end
 
 to death ;; adults die in the end of emergence period
   if ticks > end-month [
     ask cicadas [
-      if (ticks mod lf-duration-ticks) = end-month and reproductive = true [
+      if (ticks mod lf-duration-ticks) = end-month and adult = true [
         die
       ]]]
 end
@@ -79,7 +79,7 @@ end
 to grow
   ask cicadas [
     if (ticks mod lf-duration-ticks) = end-month [
-      set reproductive true
+      set adult true
     ]
   ]
 end
