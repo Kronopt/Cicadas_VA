@@ -86,7 +86,7 @@ end
 
 ;; com probabilidade mutation-rate-cicadas % alteram a duração do seu ciclo de vida, para mais ou menos 1 ano
 to mutation
-  if mutation-rate-cicadas <= (random-float 100)
+  if (random-float 100) <= mutation-rate-cicadas
     [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
       [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
       [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
