@@ -184,7 +184,7 @@ INPUTBOX
 92
 125
 lower-duration
-14
+2
 1
 0
 Number
@@ -195,7 +195,7 @@ INPUTBOX
 186
 127
 higher-duration
-18
+5
 1
 0
 Number

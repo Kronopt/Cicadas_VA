@@ -16,9 +16,7 @@ to setup
 end
 
 to go
-  if not any? predators [  ;; caso os predadores morram todos (por alguma razão) estes são criados de novo
-   setup-predators
-   ]
+  reborn
   move
   predator-eat
   cicadas-reprodution
@@ -142,6 +140,11 @@ to predator-eat
       ]
     ]
   ]
+end
+
+to reborn
+ if not any? predators   ;; caso os predadores morram todos (por alguma razão) estes são criados de novo
+   [setup-predators]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
