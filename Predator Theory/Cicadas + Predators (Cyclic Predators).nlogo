@@ -77,7 +77,8 @@ end
 to cicadas-reprodution
   ask cicadas [
       if (ticks mod lf-duration-ticks) = end-month and random 100 < cicadas-reproduction-rate [
-          hatch (cicadas-progeny) [mutation]
+        if (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
+          hatch (cicadas-progeny) [mutation]]
           die
       ]
    ]
@@ -111,12 +112,13 @@ end
 to predator-reproduction
   ask predators [
     if (ticks mod lf-duration-ticks) = end-month and random 100 < predator-reprodution-rate [
+      if (count predators with [not hidden?]) < max-predators-per-cycle [
         hatch energy [             ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
           predator-mutation
           set energy predator-start-energy
           right random-float 360
           forward 1
-          ]
+          ]]
       die
       ]
     ]
@@ -200,7 +202,7 @@ n-cicadas
 n-cicadas
 0
 1000
-510
+554
 1
 1
 NIL
@@ -258,7 +260,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-2.68
+0
 0.01
 1
 NIL
@@ -270,7 +272,7 @@ INPUTBOX
 110
 316
 cicadas-progeny
-2
+10
 1
 0
 Number
@@ -357,7 +359,7 @@ mutation-rate-predators
 mutation-rate-predators
 0
 20
-18.94
+2.82
 0.01
 1
 NIL
@@ -372,7 +374,7 @@ predator-full-energy
 predator-full-energy
 0
 50
-5
+10
 1
 1
 NIL
@@ -413,7 +415,7 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-51
+100
 1
 1
 NIL
@@ -443,7 +445,7 @@ max-cicadas-per-cycle
 max-cicadas-per-cycle
 100
 1000
-1000
+100
 1
 1
 NIL
@@ -458,7 +460,7 @@ max-predators-per-cycle
 max-predators-per-cycle
 0
 500
-61
+99
 1
 1
 NIL
@@ -471,6 +473,17 @@ MONITOR
 169
 NIL
 count cicadas with [lf-duration-ticks = 60]
+17
+1
+11
+
+MONITOR
+617
+181
+929
+226
+NIL
+count predators with [lf-duration-ticks = ticks-a-year]
 17
 1
 11
