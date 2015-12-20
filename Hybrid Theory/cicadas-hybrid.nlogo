@@ -16,7 +16,6 @@ to go
   emergence
   death
   grow
-  check-population-size
   tick
 end
 
@@ -50,7 +49,7 @@ end
 to emergence
   if ticks > end-month [ ;; para as cicadas não aparecerem todas ao mesmo tempo no 1ºano
       ask cicadas [
-        ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month
+        ifelse (ticks mod lf-duration-ticks) >= begin-month and (ticks mod lf-duration-ticks) <= end-month
           [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
           [set hidden? true]
       ]]
@@ -84,16 +83,6 @@ to grow
   ]
 end
 
-to check-population-size
-  ask cicadas  [
-      if (ticks mod lf-duration-ticks) = end-month + 1 [
-           let d lf-duration-ticks
-           if count cicadas with [lf-duration-ticks = d] > max-cicadas-per-group [
-              die
-           ]
-         ]
-      ]
-end
 @#$#@#$#@
 GRAPHICS-WINDOW
 486
