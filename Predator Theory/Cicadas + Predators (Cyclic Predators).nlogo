@@ -57,7 +57,7 @@ end
 
 to emergence
   ask ( turtle-set cicadas predators) [                                                               ;; adicionei os predadores também a emergir
-    ifelse (ticks mod lf-duration-ticks) > begin-month and (ticks mod lf-duration-ticks) < end-month
+    ifelse (ticks mod lf-duration-ticks) >= begin-month and (ticks mod lf-duration-ticks) <= end-month
       [set hidden? false]                                                                             ;; se estiverem dentro do periodo de emergência, emergem.
       [set hidden? true]
   ]
@@ -110,7 +110,7 @@ end
 
 to predator-reproduction
   ask predators [
-    if (ticks mod lf-duration-ticks) = end-month and random 100 < predator-reprodution-rate [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
+    if (ticks mod lf-duration-ticks) = end-month and random 100 < predator-reprodution-rate [
         hatch energy [             ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
           predator-mutation
           set energy predator-start-energy
@@ -357,7 +357,7 @@ mutation-rate-predators
 mutation-rate-predators
 0
 20
-1.06
+18.94
 0.01
 1
 NIL
@@ -470,7 +470,7 @@ MONITOR
 884
 169
 NIL
-count cicadas with [lf-duration-ticks = 120]
+count cicadas with [lf-duration-ticks = 60]
 17
 1
 11
