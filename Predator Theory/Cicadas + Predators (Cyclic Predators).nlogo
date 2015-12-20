@@ -202,7 +202,7 @@ n-cicadas
 n-cicadas
 0
 1000
-554
+516
 1
 1
 NIL
@@ -234,7 +234,7 @@ initial-lifecycle-t-cicadas
 initial-lifecycle-t-cicadas
 1
 30
-1
+7
 1
 1
 NIL
@@ -246,7 +246,7 @@ INPUTBOX
 84
 246
 ticks-a-year
-60
+120
 1
 0
 Number
@@ -260,7 +260,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-0
+4.84
 0.01
 1
 NIL
@@ -333,7 +333,7 @@ initial-percentage-of-predators
 initial-percentage-of-predators
 0
 100
-1
+5
 1
 1
 NIL
@@ -374,7 +374,7 @@ predator-full-energy
 predator-full-energy
 0
 50
-10
+5
 1
 1
 NIL
@@ -444,8 +444,8 @@ SLIDER
 max-cicadas-per-cycle
 max-cicadas-per-cycle
 100
-1000
-100
+5000
+999
 1
 1
 NIL
@@ -459,34 +459,12 @@ SLIDER
 max-predators-per-cycle
 max-predators-per-cycle
 0
-500
-99
+1000
+198
 1
 1
 NIL
 HORIZONTAL
-
-MONITOR
-627
-124
-884
-169
-NIL
-count cicadas with [lf-duration-ticks = 60]
-17
-1
-11
-
-MONITOR
-617
-181
-929
-226
-NIL
-count predators with [lf-duration-ticks = ticks-a-year]
-17
-1
-11
 
 @#$#@#$#@
 ## WHAT IS IT?

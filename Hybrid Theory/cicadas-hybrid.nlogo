@@ -82,7 +82,6 @@ to grow
     ]
   ]
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 486
@@ -203,7 +202,7 @@ Number of Cicadas
 100.0
 false
 false
-"set-plot-x-range 0 20\nset-plot-y-range 0 max-cicadas-per-group" ""
+"set-plot-x-range 0 20\nset-plot-y-range 0 max-cicadas-per-cycle" ""
 PENS
 "default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
@@ -245,7 +244,7 @@ INPUTBOX
 141
 483
 201
-max-cicadas-per-group
+max-cicadas-per-cycle
 200
 1
 0
