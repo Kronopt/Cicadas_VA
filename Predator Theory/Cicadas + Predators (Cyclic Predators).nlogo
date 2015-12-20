@@ -110,7 +110,7 @@ end
 
 to predator-reproduction
   ask predators [
-    if (ticks mod lf-duration-ticks) = begin-month and random 100 < predator-reprodution-rate [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
+    if (ticks mod lf-duration-ticks) = end-month and random 100 < predator-reprodution-rate [      ;; Acho que tinhas esta parte mal. Reproduzem-se antes de emergir.
         hatch energy [             ;; Produz zero ou predator-start-energy crias (mais quando come cicadas)
           predator-mutation
           set energy predator-start-energy
