@@ -58,7 +58,7 @@ end
 
 to reprodution                ;; talvez mudar esta procedure?
   ask cicadas [
-    if hidden? = false and adult = true [
+    if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
        let mate one-of cicadas-on neighbors
        if mate != nobody and [hidden?] of mate = false and [adult] of mate = true [
          hatch cicadas-progeny [set adult false]]
