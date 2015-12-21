@@ -16,7 +16,7 @@ to setup
 end
 
 to go
-  if (ticks mod ticks-a-year) >= begin-month and (ticks mod ticks-a-year) <= end-month [ ;; acelera a simulação: sabemos que nada vai acontecer fora deste intervalo de tempo
+  if (ticks mod ticks-a-year) >= begin-month and (ticks mod ticks-a-year) <= end-month [ ;; acelera a simulação: sabemos que nada vai acontecer fora deste intervalo
     reborn
     move
     predator-eat
@@ -195,21 +195,6 @@ NIL
 NIL
 1
 
-SLIDER
-15
-55
-187
-88
-n-cicadas
-n-cicadas
-0
-1000
-516
-1
-1
-NIL
-HORIZONTAL
-
 BUTTON
 93
 10
@@ -228,25 +213,25 @@ NIL
 0
 
 SLIDER
-15
-142
-188
-175
+195
+117
+385
+150
 initial-lifecycle-t-cicadas
 initial-lifecycle-t-cicadas
 1
 30
-1
+7
 1
 1
 NIL
 HORIZONTAL
 
 INPUTBOX
-12
-186
-84
-246
+10
+206
+82
+266
 ticks-a-year
 60
 1
@@ -254,25 +239,25 @@ ticks-a-year
 Number
 
 SLIDER
-15
-97
-187
-130
+13
+117
+185
+150
 mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-1.02
+1
 0.01
 1
 NIL
 HORIZONTAL
 
 INPUTBOX
-12
-256
-110
-316
+13
+268
+111
+328
 cicadas-progeny
 2
 1
@@ -280,10 +265,10 @@ cicadas-progeny
 Number
 
 PLOT
-9
-322
-315
-510
+8
+335
+314
+523
 Cicadas Lifecycle's Duration
 Duration
 Number of Cicadas
@@ -309,10 +294,10 @@ count cicadas
 11
 
 PLOT
+317
 334
-320
-661
-516
+644
+524
 Predators Lifecycle's Duration
 Duration
 Number of Predators
@@ -327,10 +312,10 @@ PENS
 "default" 1.0 1 -16777216 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of predators)"
 
 SLIDER
-192
-56
-412
-89
+163
+51
+383
+84
 initial-percentage-of-predators
 initial-percentage-of-predators
 0
@@ -342,10 +327,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-117
-255
-228
-315
+112
+269
+223
+329
 predator-start-energy
 2
 1
@@ -353,25 +338,25 @@ predator-start-energy
 Number
 
 SLIDER
-192
-98
-377
-131
+11
+153
+186
+186
 mutation-rate-predators
 mutation-rate-predators
 0
 20
-1.06
+1
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-416
-56
-588
-89
+387
+51
+559
+84
 predator-full-energy
 predator-full-energy
 0
@@ -391,7 +376,7 @@ predator-reprodution-rate
 predator-reprodution-rate
 0
 100
-49
+50
 1
 1
 NIL
@@ -409,10 +394,10 @@ count predators
 11
 
 SLIDER
-412
-136
-605
-169
+416
+129
+595
+162
 cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
@@ -424,49 +409,52 @@ NIL
 HORIZONTAL
 
 SLIDER
-194
-137
-388
-170
+192
+153
+386
+186
 initial-lifecycle-t-predators
 initial-lifecycle-t-predators
 0
 20
-1
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-428
-183
-601
-216
-max-cicadas-per-cycle
-max-cicadas-per-cycle
-100
-5000
-2054
+6
 1
 1
 NIL
 HORIZONTAL
 
-SLIDER
-421
-226
-608
-259
-max-predators-per-cycle
-max-predators-per-cycle
+INPUTBOX
+12
+50
+160
+110
+n-cicadas
+500
+1
 0
-1000
-23
+Number
+
+INPUTBOX
+423
+164
+549
+224
+max-cicadas-per-cycle
+2000
 1
+0
+Number
+
+INPUTBOX
+424
+226
+550
+286
+max-predators-per-cycle
+20
 1
-NIL
-HORIZONTAL
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -816,24 +804,53 @@ NetLogo 5.2.1
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="Cicadas Lifecycle's Duration" repetitions="5" runMetricsEveryStep="false">
+  <experiment name="Experiência 2" repetitions="5" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <exitCondition>ticks = 79862</exitCondition>
+    <timeLimit steps="30000"/>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="mutation-rate-cicadas">
-      <value value="1.53"/>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="23"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-lifecycle-t">
+    <enumeratedValueSet variable="predator-start-energy">
       <value value="2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ticks-a-year">
-      <value value="360"/>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="cicadas-progeny">
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="516"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="49"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
       <value value="1"/>
     </enumeratedValueSet>
-    <steppedValueSet variable="n-cicadas" first="20" step="1" last="100"/>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1.06"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1.02"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2054"/>
+    </enumeratedValueSet>
   </experiment>
 </experiments>
 @#$#@#$#@
