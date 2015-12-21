@@ -221,7 +221,7 @@ initial-lifecycle-t-cicadas
 initial-lifecycle-t-cicadas
 1
 30
-7
+1
 1
 1
 NIL
@@ -415,9 +415,9 @@ SLIDER
 186
 initial-lifecycle-t-predators
 initial-lifecycle-t-predators
-0
-20
-6
+1
+30
+8
 1
 1
 NIL
@@ -804,31 +804,28 @@ NetLogo 5.2.1
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="Experiência 2" repetitions="5" runMetricsEveryStep="false">
+  <experiment name="Experiment 1" repetitions="5" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="30000"/>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="max-predators-per-cycle">
-      <value value="23"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="predator-start-energy">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="cicadas-reproduction-rate">
       <value value="50"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="n-cicadas">
-      <value value="516"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="predator-full-energy">
       <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="predator-reprodution-rate">
-      <value value="49"/>
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-lifecycle-t-predators">
-      <value value="4"/>
+      <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
       <value value="7"/>
@@ -840,16 +837,211 @@ NetLogo 5.2.1
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="mutation-rate-predators">
-      <value value="1.06"/>
+      <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="mutation-rate-cicadas">
-      <value value="1.02"/>
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="cicadas-progeny">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="2054"/>
+      <value value="2000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 2" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="30000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="predator-start-energy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 3" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="30000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="predator-start-energy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 4" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="30000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="predator-start-energy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 5" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="30000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="predator-start-energy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2000"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

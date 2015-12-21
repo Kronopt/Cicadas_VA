@@ -56,18 +56,15 @@ to emergence
 end
 
 
-to reprodution                ;; talvez mudar esta procedure?
+to reprodution ;; mudar?
   ask cicadas [
     if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
-       let mate one-of cicadas-on neighbors
-       let t true
-       if mate != nobody [
-          while [t or ([hidden?] of mate = true and [adult] of mate = false)]
-           [set mate one-of cicadas-on neighbors]
-           if mate = nobody [set t false]
-       if not t
-          [hatch cicadas-progeny [set adult false]]
-    ]]]
+      let c cicadas with [hidden? = false and adult = true]
+      let mate one-of cicadas-on neighbors
+      if mate != nobody [
+        if member? mate c
+         [hatch cicadas-progeny [set adult false]]]
+    ]]
 end
 
 to death ;; adults die in the end of emergence period
