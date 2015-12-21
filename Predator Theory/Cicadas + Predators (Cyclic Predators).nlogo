@@ -16,12 +16,14 @@ to setup
 end
 
 to go
-  reborn
-  move
-  predator-eat
-  cicadas-reprodution
-  predator-reproduction
-  emergence
+  if (ticks mod ticks-a-year) >= begin-month and (ticks mod ticks-a-year) <= end-month [ ;; acelera a simulação: sabemos que nada vai acontecer fora deste intervalo de tempo
+    reborn
+    move
+    predator-eat
+    cicadas-reprodution
+    predator-reproduction
+    emergence
+  ]
   tick
 end
 
@@ -32,12 +34,12 @@ to time-variables
 end
 
 to move
-  ask ( turtle-set cicadas predators) [
-    if not hidden? [      ;; cicadas escondidas não se mexem (a simulação corre um pouco mais rápido)
-      right random-float 360
-      forward 1
+     ask ( turtle-set cicadas predators) [
+       if not hidden? [      ;; cicadas escondidas não se mexem (a simulação corre um pouco mais rápido)
+         right random-float 360
+         forward 1
+         ]
       ]
-    ]
 end
 
 to setup-patches
@@ -234,7 +236,7 @@ initial-lifecycle-t-cicadas
 initial-lifecycle-t-cicadas
 1
 30
-7
+1
 1
 1
 NIL
@@ -246,7 +248,7 @@ INPUTBOX
 84
 246
 ticks-a-year
-120
+60
 1
 0
 Number
@@ -260,7 +262,7 @@ mutation-rate-cicadas
 mutation-rate-cicadas
 0
 20
-4.84
+1.02
 0.01
 1
 NIL
@@ -272,7 +274,7 @@ INPUTBOX
 110
 316
 cicadas-progeny
-10
+2
 1
 0
 Number
@@ -333,7 +335,7 @@ initial-percentage-of-predators
 initial-percentage-of-predators
 0
 100
-5
+1
 1
 1
 NIL
@@ -359,7 +361,7 @@ mutation-rate-predators
 mutation-rate-predators
 0
 20
-2.82
+1.06
 0.01
 1
 NIL
@@ -415,7 +417,7 @@ cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
 100
-100
+50
 1
 1
 NIL
@@ -445,7 +447,7 @@ max-cicadas-per-cycle
 max-cicadas-per-cycle
 100
 5000
-999
+2054
 1
 1
 NIL
@@ -460,7 +462,7 @@ max-predators-per-cycle
 max-predators-per-cycle
 0
 1000
-198
+23
 1
 1
 NIL
