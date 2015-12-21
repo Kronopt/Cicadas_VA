@@ -59,12 +59,18 @@ end
 to reprodution ;; mudar?
   ask cicadas [
     if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
-      let c cicadas with [hidden? = false and adult = true]
+      let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
       let mate one-of cicadas-on neighbors
       if mate != nobody [
         if member? mate c
-         [hatch cicadas-progeny [set adult false]]]
-    ]]
+         [hatch cicadas-progeny [set adult false
+             if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de cíclos diferetes, o filho sofre uma mutação
+               let n (ticks-a-year * (one-of [1 2 3 4 5]))              ;; ciclo de vida altera-se de 1 a 5 anos
+               ifelse random 100 < 50
+                  [set lf-duration-ticks (lf-duration-ticks + n)]
+                  [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+        ]]]
+    ]]]
 end
 
 to death ;; adults die in the end of emergence period
@@ -104,8 +110,8 @@ GRAPHICS-WINDOW
 20
 -30
 30
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -127,7 +133,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-10
+20
 1
 0
 Number
@@ -172,7 +178,7 @@ INPUTBOX
 92
 125
 lower-duration
-2
+14
 1
 0
 Number
@@ -183,7 +189,7 @@ INPUTBOX
 186
 127
 higher-duration
-5
+18
 1
 0
 Number
@@ -202,7 +208,7 @@ Number of Cicadas
 100.0
 false
 false
-"set-plot-x-range 0 20\nset-plot-y-range 0 max-cicadas-per-cycle" ""
+"set-plot-x-range 0 30\nset-plot-y-range 0 max-cicadas-per-cycle" ""
 PENS
 "default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
@@ -245,7 +251,7 @@ INPUTBOX
 483
 201
 max-cicadas-per-cycle
-200
+1000
 1
 0
 Number
