@@ -93,13 +93,13 @@ to mutation
        [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
          [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
          [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
-    ]]
+    ]
     if type-mutation-cicadas = "exponential 1" [
       let mut ((ceiling random-exponential 1) * ticks-a-year)
       ifelse random 100 < 50
         [set lf-duration-ticks (lf-duration-ticks + mut)]
         [if lf-duration-ticks > mut [set lf-duration-ticks (lf-duration-ticks - mut)]]
-    ]
+    ]]
 end
 
 
@@ -139,13 +139,13 @@ to predator-mutation
        [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
          [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
          [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
-    ]]
+    ]
     if type-mutation-predators = "exponential 1" [
       let mut ((ceiling random-exponential 1) * ticks-a-year)
       ifelse random 100 < 50
         [set lf-duration-ticks (lf-duration-ticks + mut)]
         [if lf-duration-ticks > mut [set lf-duration-ticks (lf-duration-ticks - mut)]]
-    ]
+    ]]
 end
 
 to predator-eat
