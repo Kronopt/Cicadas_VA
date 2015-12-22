@@ -88,10 +88,17 @@ end
 
 ;; com probabilidade mutation-rate-cicadas % alteram a duração do seu ciclo de vida, para mais ou menos 1 ano
 to mutation
-  if (random-float 100) <= mutation-rate-cicadas
-    [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
-      [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
-      [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
+  if (random-float 100) <= mutation-rate-cicadas [
+    if type-mutation-cicadas = "1 year variation"
+       [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
+         [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
+         [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
+    ]]
+    if type-mutation-cicadas = "exponential 1" [
+      let mut ((ceiling random-exponential 1) * ticks-a-year)
+      ifelse random 100 < 50
+        [set lf-duration-ticks (lf-duration-ticks + mut)]
+        [if lf-duration-ticks > mut [set lf-duration-ticks (lf-duration-ticks - mut)]]
     ]
 end
 
@@ -127,10 +134,17 @@ to predator-reproduction
 end
 
 to predator-mutation
-  if random-float 100 <= mutation-rate-predators [
-    ifelse random 100 < 50
-    [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
-    [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]]
+  if (random-float 100) <= mutation-rate-predators [
+    if type-mutation-predators = "1 year variation"
+       [ifelse random 100 < 50 ;; 50% de hipóteses de aumentar e de descer a duranção do ciclo de vida
+         [set lf-duration-ticks (lf-duration-ticks + ticks-a-year)]
+         [if lf-duration-ticks != ticks-a-year [set lf-duration-ticks (lf-duration-ticks - ticks-a-year)]] ;; se o ciclo de vida fôr de 1 ano, o ciclo de vida não diminui de duração
+    ]]
+    if type-mutation-predators = "exponential 1" [
+      let mut ((ceiling random-exponential 1) * ticks-a-year)
+      ifelse random 100 < 50
+        [set lf-duration-ticks (lf-duration-ticks + mut)]
+        [if lf-duration-ticks > mut [set lf-duration-ticks (lf-duration-ticks - mut)]]
     ]
 end
 
@@ -246,7 +260,7 @@ SLIDER
 mutation-rate-cicadas
 mutation-rate-cicadas
 0
-20
+99
 1
 0.01
 1
@@ -417,7 +431,7 @@ initial-lifecycle-t-predators
 initial-lifecycle-t-predators
 1
 30
-8
+1
 1
 1
 NIL
@@ -455,6 +469,26 @@ max-predators-per-cycle
 1
 0
 Number
+
+CHOOSER
+87
+208
+235
+253
+type-mutation-cicadas
+type-mutation-cicadas
+"1 year variation" "exponential 1"
+1
+
+CHOOSER
+237
+208
+399
+253
+type-mutation-predators
+type-mutation-predators
+"1 year variation" "exponential 1"
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -1021,6 +1055,54 @@ NetLogo 5.2.1
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
       <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-percentage-of-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate-cicadas">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="2000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 6" repetitions="2" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="predator-start-energy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-reproduction-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-full-energy">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predator-reprodution-rate">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-predators">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-lifecycle-t-cicadas">
+      <value value="8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>

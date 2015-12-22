@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # filename = argv[1]
 
 # dataf = open(filename, 'r')
-dataf = open('Simulation_Data\Cicadas + Predators (Cyclic Predators) Experiment 5-spreadsheet.csv', 'r')
+dataf = open('Simulation_Data\Cicadas + Predators (Cyclic Predators) Experiment 6-spreadsheet.csv', 'r')
 data = dataf.readlines()
 
 data = data[24][2:-1].split('","')
