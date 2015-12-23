@@ -69,10 +69,13 @@ end
 
 
 to setup-cicadas
-  create-cicadas n-cicadas [ setxy random-xcor random-ycor ]
-  ask cicadas [set color green
-               set hidden? true                                            ;; cicadas começam enterradas
-               set lf-duration-ticks (ticks-a-year * initial-lifecycle-t-cicadas)] ;; lifecycle duration in ticks
+  create-cicadas n-cicadas [
+    setxy random-xcor random-ycor
+    set shape "bug"
+    set color green
+    set hidden? true                                                   ;; cicadas começam enterradas
+    set lf-duration-ticks (ticks-a-year * initial-lifecycle-t-cicadas) ;; lifecycle duration in ticks
+    ]
 end
 
 
@@ -107,7 +110,7 @@ end
 
 
 to setup-predators
-  set-default-shape predators "airplane"                         ;; aqui não tinha o eagle xD
+  set-default-shape predators "eagle"                         ;; aqui não tinha o eagle xD
   create-predators ( n-cicadas * (initial-percentage-of-predators / 100) ) [  ;; define-se com um slider a proporção
     setxy random-xcor random-ycor
     set color brown
@@ -166,10 +169,10 @@ to reborn
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-821
-25
-1260
-485
+786
+10
+1225
+470
 16
 16
 13.0
@@ -193,9 +196,9 @@ ticks
 30.0
 
 BUTTON
-17
+8
 10
-80
+71
 43
 NIL
 setup
@@ -210,9 +213,9 @@ NIL
 1
 
 BUTTON
-93
+80
 10
-156
+143
 43
 NIL
 go
@@ -227,10 +230,10 @@ NIL
 0
 
 SLIDER
-195
-117
-385
-150
+189
+121
+379
+154
 initial-lifecycle-t-cicadas
 initial-lifecycle-t-cicadas
 1
@@ -242,10 +245,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-10
-206
-82
-266
+705
+11
+777
+71
 ticks-a-year
 60
 1
@@ -253,10 +256,10 @@ ticks-a-year
 Number
 
 SLIDER
-13
-117
-185
-150
+8
+121
+180
+154
 mutation-rate-cicadas
 mutation-rate-cicadas
 0
@@ -268,9 +271,9 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-13
+217
 268
-111
+315
 328
 cicadas-progeny
 2
@@ -279,10 +282,10 @@ cicadas-progeny
 Number
 
 PLOT
-8
-335
-314
-523
+9
+337
+315
+525
 Cicadas Lifecycle's Duration
 Duration
 Number of Cicadas
@@ -297,10 +300,10 @@ PENS
 "N Cicadas" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
 MONITOR
-632
-10
-749
-55
+660
+337
+777
+382
 Number of Cicadas
 count cicadas
 17
@@ -308,10 +311,10 @@ count cicadas
 11
 
 PLOT
-317
-334
-644
-524
+324
+337
+651
+527
 Predators Lifecycle's Duration
 Duration
 Number of Predators
@@ -326,13 +329,13 @@ PENS
 "default" 1.0 1 -16777216 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of predators)"
 
 SLIDER
-163
-51
-383
-84
+152
+66
+372
+99
 initial-percentage-of-predators
 initial-percentage-of-predators
-0
+1
 100
 1
 1
@@ -341,10 +344,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-112
-269
-223
-329
+324
+268
+435
+328
 predator-start-energy
 2
 1
@@ -352,14 +355,14 @@ predator-start-energy
 Number
 
 SLIDER
-11
-153
-186
-186
+8
+163
+180
+196
 mutation-rate-predators
 mutation-rate-predators
 0
-20
+99
 1
 0.01
 1
@@ -367,10 +370,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-387
-51
-559
-84
+8
+205
+180
+238
 predator-full-energy
 predator-full-energy
 0
@@ -382,10 +385,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-415
-96
-594
-129
+388
+163
+567
+196
 predator-reprodution-rate
 predator-reprodution-rate
 0
@@ -397,10 +400,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-632
-62
-749
-107
+660
+392
+777
+437
 Number of Predators
 count predators
 17
@@ -408,10 +411,10 @@ count predators
 11
 
 SLIDER
-416
-129
-595
-162
+388
+121
+567
+154
 cicadas-reproduction-rate
 cicadas-reproduction-rate
 0
@@ -423,10 +426,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-192
-153
-386
-186
+189
+163
+379
+196
 initial-lifecycle-t-predators
 initial-lifecycle-t-predators
 1
@@ -438,10 +441,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-12
-50
-160
-110
+8
+52
+143
+112
 n-cicadas
 500
 1
@@ -449,10 +452,10 @@ n-cicadas
 Number
 
 INPUTBOX
-423
-164
-549
-224
+412
+10
+536
+70
 max-cicadas-per-cycle
 2000
 1
@@ -460,10 +463,10 @@ max-cicadas-per-cycle
 Number
 
 INPUTBOX
-424
-226
-550
-286
+544
+10
+668
+70
 max-predators-per-cycle
 20
 1
@@ -471,20 +474,20 @@ max-predators-per-cycle
 Number
 
 CHOOSER
-87
-208
-235
-253
+576
+109
+724
+154
 type-mutation-cicadas
 type-mutation-cicadas
 "1 year variation" "exponential 1"
 1
 
 CHOOSER
-237
+576
+163
+724
 208
-399
-253
 type-mutation-predators
 type-mutation-predators
 "1 year variation" "exponential 1"
@@ -610,6 +613,18 @@ dot
 false
 0
 Circle -7500403 true true 90 90 120
+
+eagle
+true
+0
+Polygon -7500403 true true 150 300 105 270 135 240 165 240 195 270 150 300
+Polygon -7500403 true true 135 240 120 210 180 210 165 240
+Polygon -7500403 true true 120 210 60 195 45 165 255 165 240 195 180 210
+Polygon -7500403 true true 45 165 15 150 0 120 105 135 120 150 180 150 195 135 300 120 285 150 255 165
+Polygon -7500403 true true 120 150 135 105 165 105 180 150
+Polygon -7500403 true true 135 105 150 90 165 105
+Line -1 false 135 120 150 120
+Line -1 false 165 120 150 120
 
 face happy
 false

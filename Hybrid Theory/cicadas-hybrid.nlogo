@@ -31,6 +31,7 @@ to setup-cicadas
   foreach duration [ ;; creates n-cicadas-per-group per group of cicadas, each one with a different lifecycle duration
     create-cicadas n-cicadas-per-group [
       setxy random-xcor random-ycor
+      set shape "bug"
       set color green
       set hidden? true
       set lf-duration-ticks (ticks-a-year * ?)
@@ -67,14 +68,18 @@ to reprodution ;; mudar?
         while [not member? mate c]
           [set mate one-of cicadas-on neighbors]
 
-        hatch cicadas-progeny [set adult false
-        if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de cíclos diferetes, o filho sofre uma mutação
+        hatch cicadas-progeny [
+          set adult false
+          if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
             let n (ticks-a-year * (one-of [1 2 3 4 5]))              ;; ciclo de vida altera-se de 1 a 5 anos
             ifelse random 100 < 50
                [set lf-duration-ticks (lf-duration-ticks + n)]
                [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
-        ]]
-    ]]]
+               ]
+        ]
+        ]
+      ]
+    ]
 end
 
 to death ;; adults die in the end of emergence period
@@ -95,19 +100,20 @@ end
 
 to-report membership [vizinhos c] ;; true se existir algum vizinho pertencente a c
   let result false
-  ask cicadas-on vizinhos
-     [if member? self c [set result true]]
+  ask cicadas-on vizinhos [
+    if member? self c [set result true]
+    ]
   report result
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-486
+492
 10
-1029
-834
+945
+700
 20
 30
-13.0
+10.805
 1
 10
 1
@@ -133,7 +139,7 @@ INPUTBOX
 322
 199
 ticks-a-year
-360
+60
 1
 0
 Number
@@ -144,7 +150,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-40
+100
 1
 0
 Number
@@ -200,16 +206,16 @@ INPUTBOX
 186
 127
 higher-duration
-7
+3
 1
 0
 Number
 
 PLOT
-29
-285
-229
-435
+9
+293
+477
+458
 Cicadas Lifecycle's Duration
 Duration
 Number of Cicadas
@@ -250,7 +256,7 @@ MONITOR
 217
 395
 262
-NIL
+cicadas not hidden
 count cicadas with [hidden? = false]
 17
 1
