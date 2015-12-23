@@ -59,17 +59,21 @@ end
 to reprodution ;; mudar?
   ask cicadas [
     if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
+
       let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
       let mate one-of cicadas-on neighbors
-      if mate != nobody [
-        if member? mate c
-         [hatch cicadas-progeny [set adult false
-             if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de cíclos diferetes, o filho sofre uma mutação
-               let n (ticks-a-year * (one-of [1 2 3 4 5]))              ;; ciclo de vida altera-se de 1 a 5 anos
-               ifelse random 100 < 50
-                  [set lf-duration-ticks (lf-duration-ticks + n)]
-                  [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
-        ]]]
+      if mate != nobody and (membership neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
+
+        while [not member? mate c]
+          [set mate one-of cicadas-on neighbors]
+
+        hatch cicadas-progeny [set adult false
+        if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de cíclos diferetes, o filho sofre uma mutação
+            let n (ticks-a-year * (one-of [1 2 3 4 5]))              ;; ciclo de vida altera-se de 1 a 5 anos
+            ifelse random 100 < 50
+               [set lf-duration-ticks (lf-duration-ticks + n)]
+               [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+        ]]
     ]]]
 end
 
@@ -87,6 +91,13 @@ to grow
       set adult true
     ]
   ]
+end
+
+to-report membership [vizinhos c] ;; true se existir algum vizinho pertencente a c
+  let result false
+  ask cicadas-on vizinhos
+     [if member? self c [set result true]]
+  report result
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -133,7 +144,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-20
+40
 1
 0
 Number
@@ -178,7 +189,7 @@ INPUTBOX
 92
 125
 lower-duration
-14
+2
 1
 0
 Number
@@ -189,7 +200,7 @@ INPUTBOX
 186
 127
 higher-duration
-18
+7
 1
 0
 Number
