@@ -4,7 +4,7 @@ breed [preys prey]
 
 globals [month begin-month end-month]
 cicadas-own [lf-duration-ticks]
-predators-own [energy]
+predators-own [lf-duration-ticks energy]
 patches-own [default-color]
 
 
@@ -72,10 +72,13 @@ end
 
 
 to setup-cicadas
-  create-cicadas n-cicadas [ setxy random-xcor random-ycor ]
-  ask cicadas [set color green
-               set hidden? true                                            ;; cicadas começam enterradas
-               set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)] ;; lifecycle duration in ticks
+  create-cicadas n-cicadas [
+    setxy random-xcor random-ycor
+    set shape "bug"
+    set color green
+    set hidden? true                                            ;; cicadas começam enterradas
+    set lf-duration-ticks (ticks-a-year * initial-lifecycle-t)  ;; lifecycle duration in ticks
+    ]
 end
 
 
@@ -108,7 +111,7 @@ end
 
 
 to setup-predators
-  set-default-shape predators "airplane"                         ;; aqui não tinha o eagle xD
+  set-default-shape predators "eagle"                         ;; aqui não tinha o eagle xD
   create-predators ( n-cicadas * (initial-percentage-of-predators / 100) ) [  ;; define-se com um slider a proporção
     setxy random-xcor random-ycor
     set color brown
@@ -524,6 +527,18 @@ dot
 false
 0
 Circle -7500403 true true 90 90 120
+
+eagle
+true
+0
+Polygon -7500403 true true 150 300 105 270 135 240 165 240 195 270 150 300
+Polygon -7500403 true true 135 240 120 210 180 210 165 240
+Polygon -7500403 true true 120 210 60 195 45 165 255 165 240 195 180 210
+Polygon -7500403 true true 45 165 15 150 0 120 105 135 120 150 180 150 195 135 300 120 285 150 255 165
+Polygon -7500403 true true 120 150 135 105 165 105 180 150
+Polygon -7500403 true true 135 105 150 90 165 105
+Line -1 false 135 120 150 120
+Line -1 false 165 120 150 120
 
 face happy
 false
