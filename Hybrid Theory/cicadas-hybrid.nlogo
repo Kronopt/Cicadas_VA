@@ -275,8 +275,8 @@ CHOOSER
 260
 type-of-mutation
 type-of-mutation
-"random-1-to-5" "1 year" "exponential 1"
-0
+"random-1-to-5" "1 year" "exponential 1" "no mutation"
+3
 
 @#$#@#$#@
 ## WHAT IS IT?
