@@ -1,127 +1,174 @@
-breed [cicadas cicada]
+;; Cenas diferentes:
 
-globals [month begin-month end-month ]
-cicadas-own [lf-duration-ticks adult]
+
+;;[falta]
+;; - Diferente maneira de contar o tempo.
+;;      Cada ano equivale a 10 ticks,
+;;      excepto quando o ano actual é um ano em que há emergência de cicadas.
+;;      Isto permite não só que se note à mesma a passagem do tempo
+;;      como também visualizar as interacções cicada-predador quando as cicadas emergem
+
+
+;;[falta]
+;; - Período de reprodução diferente
+;;      Para simplificar assumo que o período de reprodução equivale a um ano inteiro,
+;;      sendo que esse ano equivale a 50 ticks.
+;;      Portanto cada ano que passa em que as cicadas estão enterradas equivale a 10 ticks
+;;      e anos em que há emergência equivale a 50 ticks
+
+
+;;[DONE]
+;; - Implementei (adaptado) o modelo "Wolf Sheep Predation" para a estabilização dos Predadores
+;;      Assim, sempre que não há cicadas, os predadores estabilizam, mas sempre que
+;;      há emergência de cicadas a sua população aumenta, voltando depois a estabilizar
+;;      quando estas desaparecem.
+;;      Isto permite também um efeito causado pelas cicadas do período anterior nas cicadas de um
+;;      ciclo seguinte não muito longínquo, já que os predadores podem ainda não ter voltado a
+;;      estabilizar numa população menos numerosa.
+;;      Os Predadores estabilizam sempre numa população com um desvio padrão de ~30 (sem cicadas)
+
+
+breed [cicadas cicada]
+breed [predators predator]
+breed [preys prey]  ;; Hidden prey, to allow predator stabilization
+
+turtles-own [energy]
+patches-own [alive countdown]
+
 
 to setup
   clear-all
-  setup-cicadas
-  time-variables
+  setup-patches
+  setup-predators
+  setup-preys
   reset-ticks
 end
 
+
 to go
-  move-cicadas
-  reprodution
-  emergence
-  death
-  grow
+  ;;if not any? cicadas [ stop ]
+  if not any? predators [ setup-predators ]
+  if not any? preys [ setup-preys ]
+
+  ask predators [
+    move
+    catch-preys
+    death
+    reproduce-predators
+  ]
+
+  ask preys [
+    move
+    eat-grass
+    death
+    reproduce-preys
+  ]
+
+  ask patches [ grow-grass ]
+
   tick
 end
 
-to time-variables
-  set month (ticks-a-year / 12)
-  set begin-month (month * 4) ;; considerei as cicadas emergem durante um mês (finais de abril a inicios de maio). estou a considerar que a simulação começa no inicio de um ano.
-  set end-month (month * 5)
-end
 
-to setup-cicadas
-  let duration n-values (higher-duration - lower-duration + 1) [lower-duration + ?] ;; creates a list with a sequence from lower-duration to higher-duration
-
-  foreach duration [ ;; creates n-cicadas-per-group per group of cicadas, each one with a different lifecycle duration
-    create-cicadas n-cicadas-per-group [
-      setxy random-xcor random-ycor
-      set shape "bug"
-      set color green
-      set hidden? true
-      set lf-duration-ticks (ticks-a-year * ?)
-      set adult true]]
-end
-
-
-to move-cicadas
-  ask cicadas [
-    right random 360
-    forward 2
+to setup-patches
+  ask patches [
+    set pcolor green + 1
+    set alive one-of [ true false ]
+    if-else alive = true
+    [ set countdown 30 ]  ;; ref: "Wolf Sheep Predation"
+    [ set countdown random 30 ]  ;; ditto
   ]
 end
 
 
-to emergence
-  if ticks > end-month [ ;; para as cicadas não aparecerem todas ao mesmo tempo no 1ºano
-      ask cicadas [
-        ifelse (ticks mod lf-duration-ticks) >= begin-month and (ticks mod lf-duration-ticks) <= end-month
-          [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
-          [set hidden? true]
-      ]]
-end
-
-
-to reprodution ;; mudar?
-  ask cicadas [
-    if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
-
-      let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
-      let mate one-of cicadas-on neighbors
-      if mate != nobody and (membership neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
-
-        while [not member? mate c]
-          [set mate one-of cicadas-on neighbors]
-
-        hatch cicadas-progeny [
-          set adult false
-          let n 0
-          if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
-            if type-of-mutation = "random-1-to-5"
-               [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
-            if type-of-mutation = "1 year"
-               [set n (ticks-a-year)]
-            if type-of-mutation = "exponential 1"
-               [set n ((ceiling random-exponential 1) * ticks-a-year)]
-            ifelse random 100 < 50
-               [set lf-duration-ticks (lf-duration-ticks + n)]
-               [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
-               ]
-        ]
-        ]
-      ]
-    ]
-end
-
-to death ;; adults die in the end of emergence period
-  if ticks > end-month [
-    ask cicadas [
-      if (ticks mod lf-duration-ticks) = end-month and adult = true [
-        die
-      ]]]
-end
-
-to grow
-  ask cicadas [
-    if (ticks mod lf-duration-ticks) = end-month [
-      set adult true
-    ]
+to setup-predators
+  set-default-shape predators "eagle"
+  create-predators stabilized-mean-predators [  ;; Predators start with its mean stabilized population value
+    setxy random-xcor random-ycor
+    set color brown
+    set size 2
+    set energy random 40  ;; ref: "Wolf Sheep Predation"
   ]
 end
 
-to-report membership [vizinhos c] ;; true se existir algum vizinho pertencente a c
-  let result false
-  ask cicadas-on vizinhos [
-    if member? self c [set result true]
-    ]
-  report result
+
+to setup-preys
+  create-preys 175 [    ;; Good all-around value for starting out. Prey population doesn't vary much from this value anyway (although standard deviation gets bigger as population grows)
+    setxy random-xcor random-ycor
+    set size 1.5
+    set energy random 8  ;; ref: "Wolf Sheep Predation"
+    set hidden? true
+  ]
+end
+
+
+to move
+  if not (is-cicada? self and hidden?) [  ;; Hidden cicadas do not move
+    set energy energy - 1
+    right random 50
+    left random 50
+    forward 1
+  ]
+end
+
+
+to eat-grass
+  if alive  = true [
+    set alive false
+    set energy energy + 4  ;; ref: "Wolf Sheep Predation"
+  ]
+end
+
+
+to reproduce-preys
+  if random-float 100 < int ( ( stabilized-mean-predators / 12 ) - 1 ) [  ;; Formula for converting the value shown in the slider to a probability of reproduction (got it by trial and error). Only changing this value allows for the predator population to vary.
+    set energy (energy / 2)
+    hatch 1 [ right random 360 forward 1 ]
+  ]
+end
+
+
+to reproduce-predators
+  if random-float 100 < 5 [  ;; ref: "Wolf Sheep Predation"
+    set energy (energy / 2)
+    hatch 1 [ right random 360 forward 1 ]
+  ]
+end
+
+
+to catch-preys
+  let a-prey one-of preys-here
+  if a-prey != nobody [
+    ask a-prey [ die ]
+    set energy energy + 20  ;; ref: "Wolf Sheep Predation"
+  ]
+end
+
+
+to death
+  if energy < 0 [ die ]
+end
+
+
+to grow-grass
+  if alive = false [
+    ifelse countdown <= 0
+    [ set alive true
+      set countdown 30 ]
+    [ set countdown countdown - 1 ]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-492
+420
 10
-945
-700
-20
-30
-10.805
+889
+500
+25
+25
+9.0
 1
-10
+14
 1
 1
 1
@@ -129,44 +176,37 @@ GRAPHICS-WINDOW
 1
 1
 1
--20
-20
--30
-30
+-25
+25
+-25
+25
 1
 1
 1
 ticks
 30.0
 
-INPUTBOX
-162
-130
-317
-190
-ticks-a-year
-60
+SLIDER
+6
+52
+217
+85
+n-cicadas
+n-cicadas
+10
+1000
+1000
 1
-0
-Number
-
-INPUTBOX
-7
-130
-162
-190
-n-cicadas-per-group
-75
 1
-0
-Number
+NIL
+HORIZONTAL
 
 BUTTON
-29
-23
-92
-56
-NIL
+7
+10
+70
+43
+setup
 setup
 NIL
 1
@@ -179,11 +219,11 @@ NIL
 1
 
 BUTTON
-109
-22
-172
-55
-NIL
+79
+10
+142
+43
+go
 go
 T
 1
@@ -195,88 +235,58 @@ NIL
 NIL
 0
 
-INPUTBOX
-7
-65
-92
-125
-lower-duration
-14
-1
-0
-Number
-
-INPUTBOX
-92
-65
-185
-125
-higher-duration
-18
-1
-0
-Number
-
 PLOT
 9
-293
-477
-458
-Cicadas Lifecycle's Duration
-Duration
-Number of Cicadas
-0.0
-2000.0
+280
+411
+500
+Predator Population
+Time
+NIL
 0.0
 100.0
+0.0
+100.0
+true
 false
-false
-"set-plot-x-range 0 30\nset-plot-y-range 0 max-cicadas-per-cycle" ""
+"" ""
 PENS
-"default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
+"predators" 1.0 0 -2674135 true "" "plot count predators"
 
-MONITOR
-355
-21
-472
-66
-Number of Cicadas
-count cicadas
-17
-1
-11
-
-INPUTBOX
-7
-190
-162
+SLIDER
+6
+94
+217
+127
+stabilized-mean-predators
+stabilized-mean-predators
+40
 250
-cicadas-progeny
+40
+30
 1
-1
-0
-Number
+NIL
+HORIZONTAL
 
-INPUTBOX
-317
-130
-472
-190
-max-cicadas-per-cycle
-300
+TEXTBOX
+5
+128
+223
+146
+Este slider afecta a simulação em tempo real!
+11
+0.0
 1
-0
-Number
 
-CHOOSER
-326
-215
-464
-260
-type-of-mutation
-type-of-mutation
-"random-1-to-5" "1 year" "exponential 1"
-0
+TEXTBOX
+43
+200
+406
+253
+Experimenta na velocidade máxima
+20
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -398,6 +408,16 @@ dot
 false
 0
 Circle -7500403 true true 90 90 120
+
+eagle
+true
+0
+Polygon -7500403 true true 150 300 105 270 135 240 165 240 195 270 150 300
+Polygon -7500403 true true 135 240 120 210 180 210 165 240
+Polygon -7500403 true true 120 210 60 195 45 165 255 165 240 195 180 210
+Polygon -7500403 true true 45 165 15 150 0 105 105 120 120 150 180 150 195 120 300 105 285 150 255 165
+Polygon -7500403 true true 120 150 135 75 165 75 180 150
+Polygon -7500403 true true 135 75 150 60 165 75
 
 face happy
 false
@@ -625,56 +645,6 @@ NetLogo 5.2.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
-<experiments>
-  <experiment name="Experiment 1" repetitions="20" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="25000"/>
-    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="higher-duration">
-      <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ticks-a-year">
-      <value value="60"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="300"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="lower-duration">
-      <value value="12"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cicadas-progeny">
-      <value value="1"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="Experiment 2" repetitions="20" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="25000"/>
-    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="higher-duration">
-      <value value="18"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ticks-a-year">
-      <value value="60"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="300"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="lower-duration">
-      <value value="14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cicadas-progeny">
-      <value value="1"/>
-    </enumeratedValueSet>
-  </experiment>
-</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
