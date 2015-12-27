@@ -57,9 +57,9 @@ to emergence
 end
 
 
-to reprodution ;; mudar?
+to reprodution
   ask cicadas [
-    if hidden? = false and adult = true and (count cicadas with [not hidden?]) < max-cicadas-per-cycle [
+    if hidden? = false and adult = true and (count cicadas with [lf-duration-ticks = [lf-duration-ticks] of self and not adult] < max-cicadas-per-cycle) [
 
       let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
       let mate one-of cicadas-on neighbors
@@ -201,7 +201,7 @@ INPUTBOX
 92
 125
 lower-duration
-14
+15
 1
 0
 Number
@@ -654,6 +654,30 @@ NetLogo 5.2.1
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="25000"/>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="300"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 3" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="80000"/>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="higher-duration">
       <value value="18"/>
