@@ -156,7 +156,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-75
+140
 1
 0
 Number
@@ -201,7 +201,7 @@ INPUTBOX
 92
 125
 lower-duration
-12
+14
 1
 0
 Number
@@ -212,7 +212,7 @@ INPUTBOX
 185
 125
 higher-duration
-15
+18
 1
 0
 Number
@@ -263,7 +263,7 @@ INPUTBOX
 472
 190
 max-cicadas-per-cycle
-200
+140
 1
 0
 Number
@@ -276,7 +276,7 @@ CHOOSER
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation"
-0
+2
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -788,16 +788,17 @@ NetLogo 5.2.1
       <value value="18"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 1.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 7" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
@@ -815,16 +816,17 @@ NetLogo 5.2.1
       <value value="15"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 2.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 8" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
@@ -842,16 +844,17 @@ NetLogo 5.2.1
       <value value="15"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 3.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 9" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
@@ -869,16 +872,17 @@ NetLogo 5.2.1
       <value value="15"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 4.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 10" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
@@ -896,16 +900,17 @@ NetLogo 5.2.1
       <value value="18"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 5.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 11" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
@@ -923,16 +928,17 @@ NetLogo 5.2.1
       <value value="18"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 6.1" repetitions="40" runMetricsEveryStep="false">
+  <experiment name="Experiment 12" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
+    <timeLimit steps="100000"/>
     <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
     <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
     <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="75"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="200"/>
+      <value value="140"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ticks-a-year">
       <value value="60"/>
