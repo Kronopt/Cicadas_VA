@@ -201,7 +201,7 @@ INPUTBOX
 92
 125
 lower-duration
-11
+9
 1
 0
 Number
@@ -212,7 +212,7 @@ INPUTBOX
 185
 125
 higher-duration
-14
+20
 1
 0
 Number
@@ -1038,6 +1038,202 @@ NetLogo 5.2.1
     </enumeratedValueSet>
     <enumeratedValueSet variable="higher-duration">
       <value value="14"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 16" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="16"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 17" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="13"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 18" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="13"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 19" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="14"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 20" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="17"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="20"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 21" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="17"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 22" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="20"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
