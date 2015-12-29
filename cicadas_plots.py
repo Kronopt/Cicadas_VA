@@ -3,11 +3,14 @@ import matplotlib.pyplot as plt
 
 # filename = argv[1]
 
+
 # dataf = open(filename, 'r')
-dataf = open('Simulation_Data\cicadas-hybrid Experiment 2-spreadsheet 4', 'r')
+dataf = open('Hybrid Theory\Results\Experiment 7 - 12\Spreadsheet\cicadas-hybrid Experiment 12.csv', 'r')
 data = dataf.readlines()
 
-data = data[16][2:-1].split('","')
+data = data[17][2:-1].split('","')
+
+result_hist = []
 
 for i in range(0, len(data)):
     plot_data = data[i][2:-2].split()
@@ -26,9 +29,25 @@ for i in range(0, len(data)):
         plt.xlabel('Lifecycle duration (years)')
         plt.ylabel('Number of Cicadas')
         plt.xticks(range(minduration, maxduration + 1))
-        plt.savefig('Plots\\Esperiencia 4' + str(i + 1) + '.png')
+        plt.savefig('Hybrid Theory\Results\Experiment 7 - 12\Plots\Experiment 12 - ' + str(i + 1) + '.png')
+        result_hist.append(plot_data)
     except ValueError:
         plt.clf()
-        plt.savefig('Plots\\Esperiencia 4' + str(i + 1) + '.png')
+        plt.savefig('Hybrid Theory\Results\Experiment 7 - 12\Plots\Experiment 12 - ' + str(i + 1) + '.png')
+
+
+result_hist = map((lambda x: list(set(x))), result_hist)
+result_hist = [x[0] for x in result_hist if len(x) == 1]
+
+n = len(result_hist)
+
+plt.clf()
+plt.hist(result_hist)
+plt.title('Experiment 12')
+plt.suptitle('n =' + str(n), fontsize=12)
+plt.xlabel('Lifecycle duration (years)')
+plt.ylabel('Frequency')
+plt.savefig('Hybrid Theory\Results\Experiment 7 - 12\Plots\Experiment 12.png')
+
 
 dataf.close()
