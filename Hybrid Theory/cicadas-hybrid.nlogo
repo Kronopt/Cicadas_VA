@@ -78,6 +78,8 @@ to reprodution
                [set n (ticks-a-year)]
             if type-of-mutation = "exponential 1"
                [set n ((ceiling random-exponential 1) * ticks-a-year)]
+            if type-of-mutation = "5 years"
+               [set n (5 * ticks-a-year)]
             ifelse random 100 < 50
                [set lf-duration-ticks (lf-duration-ticks + n)]
                [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
@@ -275,7 +277,7 @@ CHOOSER
 260
 type-of-mutation
 type-of-mutation
-"random-1-to-5" "1 year" "exponential 1" "no mutation"
+"random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
 2
 
 @#$#@#$#@
