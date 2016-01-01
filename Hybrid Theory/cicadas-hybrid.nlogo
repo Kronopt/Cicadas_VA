@@ -1266,62 +1266,6 @@ NetLogo 5.2.1
       <value value="18"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Experiment 12.1" repetitions="5" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="100000"/>
-    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
-    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="140"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="140"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ticks-a-year">
-      <value value="90"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cicadas-progeny">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="type-of-mutation">
-      <value value="&quot;exponential 1&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="lower-duration">
-      <value value="14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="higher-duration">
-      <value value="18"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="Experiment 12.2" repetitions="40" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="100000"/>
-    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
-    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
-    <enumeratedValueSet variable="n-cicadas-per-group">
-      <value value="140"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-cicadas-per-cycle">
-      <value value="140"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ticks-a-year">
-      <value value="30"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cicadas-progeny">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="type-of-mutation">
-      <value value="&quot;exponential 1&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="lower-duration">
-      <value value="14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="higher-duration">
-      <value value="18"/>
-    </enumeratedValueSet>
-  </experiment>
   <experiment name="Experiment 24" repetitions="40" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
