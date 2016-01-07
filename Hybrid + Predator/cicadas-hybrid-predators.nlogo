@@ -85,7 +85,7 @@ to reprodution-cicadas
         hatch cicadas-progeny [
           set adult false
           let n 0
-          if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
+          if [lf-duration-ticks] of mate != lf-duration-ticks or ((random-float 100) < mutation-rate and mutation-without-hybridization = true) [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
             if type-of-mutation = "random-1-to-5"
                [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
             if type-of-mutation = "1 year"
@@ -154,7 +154,7 @@ to reproduction-predators
           set adult false
           set n-eaten 0
           let n 0
-          if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
+          if [lf-duration-ticks] of mate != lf-duration-ticks  or ((random-float 100) < mutation-rate and mutation-without-hybridization = true) [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
             if type-of-mutation = "random-1-to-5"
                [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
             if type-of-mutation = "1 year"
@@ -172,6 +172,7 @@ to reproduction-predators
       ]
     ]
 end
+
 
 to eat
   ask predators [
@@ -192,7 +193,6 @@ to-report membership-predators [vizinhos c] ;; true se existir algum vizinho per
     ]
   report result
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 859
@@ -222,10 +222,10 @@ ticks
 30.0
 
 INPUTBOX
-361
-149
-432
-209
+365
+131
+436
+191
 ticks-a-year
 60
 1
@@ -294,7 +294,7 @@ INPUTBOX
 185
 125
 higher-duration
-15
+12
 1
 0
 Number
@@ -351,10 +351,10 @@ max-cicadas-per-cycle
 Number
 
 CHOOSER
-322
+335
+196
+473
 241
-460
-286
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
@@ -387,7 +387,7 @@ INPUTBOX
 697
 134
 higher-duration-p
-3
+2
 1
 0
 Number
@@ -464,6 +464,32 @@ max-cicadas-eaten-per-predator
 1
 0
 Number
+
+SWITCH
+308
+258
+533
+291
+mutation-without-hybridization
+mutation-without-hybridization
+0
+1
+-1000
+
+SLIDER
+341
+303
+513
+336
+mutation-rate
+mutation-rate
+0
+100
+1
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
