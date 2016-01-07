@@ -3,7 +3,7 @@ breed [predators predator]
 
 globals [month begin-month end-month ]
 cicadas-own [lf-duration-ticks adult]
-predators-own [lf-duration-ticks adult n-eaten]
+predators-own [lf-duration-ticks adult n-eaten] ;; n-eaten é o número de cicadas comidas
 
 to setup
   clear-all
@@ -52,7 +52,7 @@ end
 
 
 
-to death ;; adults die in the end of emergence period
+to death                               ;; adults die in the end of emergence period
   if ticks > end-month [
     ask (turtle-set cicadas predators)  [
       if (ticks mod lf-duration-ticks) = end-month and adult = true [
@@ -60,7 +60,7 @@ to death ;; adults die in the end of emergence period
       ]]]
 end
 
-to grow
+to grow                              ;; cicadas turn into adults
   ask (turtle-set cicadas predators)  [
     if (ticks mod lf-duration-ticks) = end-month [
       set adult true
@@ -73,13 +73,15 @@ end
 
 to reprodution-cicadas
   ask cicadas [
+    ;; A 3º condição verifica se o número de cicadas filho existentes de um certo ciclo é inferior ao número máximo de cicadas por ciclo. (na prática, o max-cicadas-per-cycle
+    ;; refere-se ao nº de cicadas adultas por ciclo). Estas cicadas filho vão ser as adultas na próxima vez que emergirem, dai não poder ultrapassar aquele máximo.
     if hidden? = false and adult = true and (count cicadas with [lf-duration-ticks = [lf-duration-ticks] of self and not adult] < max-cicadas-per-cycle) [
 
       let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
       let mate one-of cicadas-on neighbors
       if mate != nobody and (membership-cicadas neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
 
-        while [not member? mate c]
+        while [not member? mate c] ;; procura mate até encontrar aquele com quem pode reproduzir-se (a condição anterior makes sure que este mate existe)
           [set mate one-of cicadas-on neighbors]
 
         hatch cicadas-progeny [
@@ -89,7 +91,7 @@ to reprodution-cicadas
             if type-of-mutation = "random-1-to-5"
                [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
             if type-of-mutation = "1 year"
-               [set n (ticks-a-year)]
+               [set n (ticks-a-year)]                                     ;; ciclo de vida altera-se 1 ano
             if type-of-mutation = "exponential 1"
                [set n ((ceiling random-exponential 1) * ticks-a-year)]
             if type-of-mutation = "5 years"
@@ -128,7 +130,7 @@ end
 ;; PREDATORS ;;
 
 to setup-predators
-  let duration n-values (higher-duration-p - lower-duration-p + 1) [lower-duration-p + ?] ;; creates a list with a sequence from lower-duration to higher-duration
+  let duration n-values (higher-duration-p - lower-duration-p + 1) [lower-duration-p + ?]
 
   foreach duration [
     create-predators n-predators-per-group [
@@ -143,9 +145,9 @@ to reproduction-predators
   ask predators [
     if hidden? = false and adult = true and (count predators with [lf-duration-ticks = [lf-duration-ticks] of self and not adult] < max-predators-per-cycle) [
 
-      let c predators with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
+      let c predators with [hidden? = false and adult = true]
       let mate one-of predators-on neighbors
-      if mate != nobody and (membership-predators neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
+      if mate != nobody and (membership-predators neighbors c) [
 
         while [not member? mate c]
           [set mate one-of predators-on neighbors]
@@ -154,9 +156,9 @@ to reproduction-predators
           set adult false
           set n-eaten 0
           let n 0
-          if [lf-duration-ticks] of mate != lf-duration-ticks  or ((random-float 100) < mutation-rate and mutation-without-hybridization = true) [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
+          if [lf-duration-ticks] of mate != lf-duration-ticks  or ((random-float 100) < mutation-rate and mutation-without-hybridization = true) [
             if type-of-mutation = "random-1-to-5"
-               [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
+               [set n (ticks-a-year * (one-of [1 2 3 4 5]))]
             if type-of-mutation = "1 year"
                [set n (ticks-a-year)]
             if type-of-mutation = "exponential 1"
@@ -177,8 +179,8 @@ end
 to eat
   ask predators [
     if hidden? = false [
-      let i one-of cicadas-here
-      if i != nobody and [hidden?] of i = false and n-eaten < max-cicadas-eaten-per-predator [  ;; já não consegue comer se a sua energia for menos que predator-full-energy
+      let i one-of cicadas-on neighbors
+      if i != nobody and [hidden?] of i = false and n-eaten < max-cicadas-eaten-per-predator [  ;; já não consegue comer se já tiver comido o máximo
          ask i [die]
          set n-eaten (n-eaten + 1)
       ]
@@ -186,7 +188,7 @@ to eat
   ]
 end
 
-to-report membership-predators [vizinhos c] ;; true se existir algum vizinho pertencente a c
+to-report membership-predators [vizinhos c]
   let result false
   ask predators-on vizinhos [
     if member? self c [set result true]
@@ -283,7 +285,7 @@ INPUTBOX
 92
 125
 lower-duration
-400
+2
 1
 0
 Number
@@ -294,7 +296,7 @@ INPUTBOX
 185
 125
 higher-duration
-400
+2
 1
 0
 Number
