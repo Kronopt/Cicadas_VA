@@ -3,7 +3,7 @@ breed [predators predator]
 
 globals [month begin-month end-month ]
 cicadas-own [lf-duration-ticks adult]
-predators-own [lf-duration-ticks adult]
+predators-own [lf-duration-ticks adult n-eaten]
 
 to setup
   clear-all
@@ -15,7 +15,11 @@ end
 
 to go
   move
-  reprodution
+  reprodution-cicadas
+  if predators? = "yes" [
+    reproduction-predators
+    eat
+  ]
   emergence
   death
   grow
@@ -28,19 +32,6 @@ to time-variables
   set end-month (month * 5)
 end
 
-to setup-cicadas
-  let duration n-values (higher-duration - lower-duration + 1) [lower-duration + ?] ;; creates a list with a sequence from lower-duration to higher-duration
-
-  foreach duration [ ;; creates n-cicadas-per-group per group of cicadas, each one with a different lifecycle duration
-    create-cicadas n-cicadas-per-group [
-      setxy random-xcor random-ycor
-      set shape "bug"
-      set color green
-      set hidden? true
-      set lf-duration-ticks (ticks-a-year * ?)
-      set adult true]]
-end
-
 
 to move
   ask (turtle-set cicadas predators) [
@@ -48,7 +39,6 @@ to move
     forward 2
   ]
 end
-
 
 to emergence
   if ticks > end-month [ ;; para as cicadas não aparecerem todas ao mesmo tempo no 1ºano
@@ -60,13 +50,34 @@ to emergence
 end
 
 
-to reprodution
+
+
+to death ;; adults die in the end of emergence period
+  if ticks > end-month [
+    ask (turtle-set cicadas predators)  [
+      if (ticks mod lf-duration-ticks) = end-month and adult = true [
+        die
+      ]]]
+end
+
+to grow
+  ask (turtle-set cicadas predators)  [
+    if (ticks mod lf-duration-ticks) = end-month [
+      set adult true
+    ]
+  ]
+end
+
+
+;; CICADAS
+
+to reprodution-cicadas
   ask cicadas [
     if hidden? = false and adult = true and (count cicadas with [lf-duration-ticks = [lf-duration-ticks] of self and not adult] < max-cicadas-per-cycle) [
 
       let c cicadas with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
       let mate one-of cicadas-on neighbors
-      if mate != nobody and (membership neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
+      if mate != nobody and (membership-cicadas neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
 
         while [not member? mate c]
           [set mate one-of cicadas-on neighbors]
@@ -93,23 +104,20 @@ to reprodution
     ]
 end
 
-to death ;; adults die in the end of emergence period
-  if ticks > end-month [
-    ask cicadas [
-      if (ticks mod lf-duration-ticks) = end-month and adult = true [
-        die
-      ]]]
+to setup-cicadas
+  let duration n-values (higher-duration - lower-duration + 1) [lower-duration + ?] ;; creates a list with a sequence from lower-duration to higher-duration
+
+  foreach duration [ ;; creates n-cicadas-per-group per group of cicadas, each one with a different lifecycle duration
+    create-cicadas n-cicadas-per-group [
+      setxy random-xcor random-ycor
+      set shape "bug"
+      set color green
+      set hidden? true
+      set lf-duration-ticks (ticks-a-year * ?)
+      set adult true]]
 end
 
-to grow
-  ask cicadas [
-    if (ticks mod lf-duration-ticks) = end-month [
-      set adult true
-    ]
-  ]
-end
-
-to-report membership [vizinhos c] ;; true se existir algum vizinho pertencente a c
+to-report membership-cicadas [vizinhos c] ;; true se existir algum vizinho pertencente a c
   let result false
   ask cicadas-on vizinhos [
     if member? self c [set result true]
@@ -117,10 +125,7 @@ to-report membership [vizinhos c] ;; true se existir algum vizinho pertencente a
   report result
 end
 
-
-
-
-;_______________________
+;; PREDATORS ;;
 
 to setup-predators
   let duration n-values (higher-duration-p - lower-duration-p + 1) [lower-duration-p + ?] ;; creates a list with a sequence from lower-duration to higher-duration
@@ -132,6 +137,60 @@ to setup-predators
       set hidden? true
       set lf-duration-ticks (ticks-a-year * ?)
       set adult true]]
+end
+
+to reproduction-predators
+  ask predators [
+    if hidden? = false and adult = true and (count predators with [lf-duration-ticks = [lf-duration-ticks] of self and not adult] < max-predators-per-cycle) [
+
+      let c predators with [hidden? = false and adult = true] ;; lista de todas as cicadas com que a actual pode acasalar
+      let mate one-of predators-on neighbors
+      if mate != nobody and (membership-predators neighbors c) [  ;; para se reproduzir tem que haver alguém na vizinhança e esse alguém tem de ser um mate legal
+
+        while [not member? mate c]
+          [set mate one-of predators-on neighbors]
+
+        hatch predators-progeny + n-eaten [
+          set adult false
+          set n-eaten 0
+          let n 0
+          if [lf-duration-ticks] of mate != lf-duration-ticks [      ;; se os pais forem de ciclos diferetes, o filho sofre uma mutação
+            if type-of-mutation = "random-1-to-5"
+               [set n (ticks-a-year * (one-of [1 2 3 4 5]))]              ;; ciclo de vida altera-se de 1 a 5 anos
+            if type-of-mutation = "1 year"
+               [set n (ticks-a-year)]
+            if type-of-mutation = "exponential 1"
+               [set n ((ceiling random-exponential 1) * ticks-a-year)]
+            if type-of-mutation = "5 years"
+               [set n (5 * ticks-a-year)]
+            ifelse random 100 < 50
+               [set lf-duration-ticks (lf-duration-ticks + n)]
+               [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+               ]
+        ]
+        ]
+      ]
+    ]
+end
+
+to eat
+  ask predators [
+    if hidden? = false [
+      let i one-of cicadas-here
+      if i != nobody and [hidden?] of i = false and n-eaten < max-cicadas-eaten-per-predator [  ;; já não consegue comer se a sua energia for menos que predator-full-energy
+         ask i [die]
+         set n-eaten (n-eaten + 1)
+      ]
+    ]
+  ]
+end
+
+to-report membership-predators [vizinhos c] ;; true se existir algum vizinho pertencente a c
+  let result false
+  ask predators-on vizinhos [
+    if member? self c [set result true]
+    ]
+  report result
 end
 
 @#$#@#$#@
@@ -163,10 +222,10 @@ ticks
 30.0
 
 INPUTBOX
-347
-21
-418
-81
+361
+149
+432
+209
 ticks-a-year
 60
 1
@@ -179,16 +238,16 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-140
+200
 1
 0
 Number
 
 BUTTON
-29
-23
-92
-56
+331
+24
+394
+57
 NIL
 setup
 NIL
@@ -202,10 +261,10 @@ NIL
 1
 
 BUTTON
-109
-22
-172
-55
+411
+23
+474
+56
 NIL
 go
 T
@@ -224,7 +283,7 @@ INPUTBOX
 92
 125
 lower-duration
-14
+12
 1
 0
 Number
@@ -235,7 +294,7 @@ INPUTBOX
 185
 125
 higher-duration
-14
+15
 1
 0
 Number
@@ -259,9 +318,9 @@ PENS
 "default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
 MONITOR
-197
+201
 76
-314
+318
 121
 Number of Cicadas
 count cicadas
@@ -286,69 +345,69 @@ INPUTBOX
 292
 193
 max-cicadas-per-cycle
-140
+200
 1
 0
 Number
 
 CHOOSER
-167
-201
-305
-246
+322
+241
+460
+286
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
-4
+0
 
 CHOOSER
-204
-20
-342
-65
+331
+81
+469
+126
 predators?
 predators?
 "no" "yes"
 1
 
 INPUTBOX
-437
-70
-528
-130
+510
+73
+601
+133
 lower-duration-p
-12
+2
 1
 0
 Number
 
 INPUTBOX
-528
-69
-624
-131
-higher-duration-p
-15
-1
-0
-Number
-
-INPUTBOX
-437
+601
+72
+697
 134
-592
-194
+higher-duration-p
+3
+1
+0
+Number
+
+INPUTBOX
+510
+137
+665
+197
 n-predators-per-group
-200
+60
 1
 0
 Number
 
 MONITOR
-630
-68
-758
-113
+703
+71
+831
+116
 Number of Predators
 count predators
 17
@@ -356,21 +415,21 @@ count predators
 11
 
 INPUTBOX
-598
-135
-753
-195
+669
+138
+824
+198
 max-predators-per-cycle
-0
+60
 1
 0
 Number
 
 PLOT
-338
-295
-666
-460
+515
+297
+854
+462
 Predators Lifecycle's Duration
 Duration
 Number of Predators
@@ -383,6 +442,28 @@ false
 "set-plot-y-range 0 max-cicadas-per-cycle + (max-cicadas-per-cycle * 0.2)" ""
 PENS
 "default" 1.0 1 -16777216 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of predators)"
+
+INPUTBOX
+511
+198
+666
+258
+predators-progeny
+2
+1
+0
+Number
+
+INPUTBOX
+669
+200
+843
+260
+max-cicadas-eaten-per-predator
+1
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
