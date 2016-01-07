@@ -52,7 +52,7 @@ end
 
 to emergence
   if ticks > end-month [ ;; para as cicadas não aparecerem todas ao mesmo tempo no 1ºano
-      ask cicadas [
+      ask (turtle-set cicadas predators) [
         ifelse (ticks mod lf-duration-ticks) >= begin-month and (ticks mod lf-duration-ticks) <= end-month
           [set hidden? false] ;; se estiverem dentro do periodo de emergência, emergem.
           [set hidden? true]
@@ -317,7 +317,7 @@ INPUTBOX
 528
 130
 lower-duration-p
-15
+12
 1
 0
 Number
@@ -365,6 +365,24 @@ max-predators-per-cycle
 1
 0
 Number
+
+PLOT
+338
+295
+666
+460
+Predators Lifecycle's Duration
+Duration
+Number of Predators
+1.0
+30.0
+0.0
+200.0
+true
+false
+"set-plot-y-range 0 max-cicadas-per-cycle + (max-cicadas-per-cycle * 0.2)" ""
+PENS
+"default" 1.0 1 -16777216 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of predators)"
 
 @#$#@#$#@
 ## WHAT IS IT?
