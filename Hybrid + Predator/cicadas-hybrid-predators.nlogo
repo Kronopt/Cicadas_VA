@@ -62,7 +62,7 @@ end
 
 to grow                              ;; cicadas turn into adults
   ask (turtle-set cicadas predators)  [
-    if (ticks mod lf-duration-ticks) = end-month [
+    if (ticks mod lf-duration-ticks) = end-month + 1 [
       set adult true
     ]
   ]
@@ -285,7 +285,7 @@ INPUTBOX
 92
 125
 lower-duration
-2
+12
 1
 0
 Number
@@ -296,7 +296,7 @@ INPUTBOX
 185
 125
 higher-duration
-2
+15
 1
 0
 Number
