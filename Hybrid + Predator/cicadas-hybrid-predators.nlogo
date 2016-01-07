@@ -238,7 +238,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-200
+140
 1
 0
 Number
@@ -283,7 +283,7 @@ INPUTBOX
 92
 125
 lower-duration
-12
+400
 1
 0
 Number
@@ -294,7 +294,7 @@ INPUTBOX
 185
 125
 higher-duration
-12
+400
 1
 0
 Number
@@ -345,7 +345,7 @@ INPUTBOX
 292
 193
 max-cicadas-per-cycle
-200
+140
 1
 0
 Number
@@ -358,7 +358,7 @@ CHOOSER
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
-0
+2
 
 CHOOSER
 331
@@ -466,10 +466,10 @@ max-cicadas-eaten-per-predator
 Number
 
 SWITCH
-308
-258
-533
-291
+315
+259
+540
+292
 mutation-without-hybridization
 mutation-without-hybridization
 0
@@ -1531,6 +1531,116 @@ NetLogo 5.2.1
     </enumeratedValueSet>
     <enumeratedValueSet variable="higher-duration">
       <value value="18"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 26" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-eaten-per-predator">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators?">
+      <value value="&quot;no&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-without-hybridization">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-predators-per-group">
+      <value value="60"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 27" repetitions="40" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="100000"/>
+    <exitCondition>length (remove-duplicates [lf-duration-ticks / ticks-a-year ] of cicadas) = 1</exitCondition>
+    <metric>list [lf-duration-ticks / ticks-a-year] of cicadas</metric>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-eaten-per-predator">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators?">
+      <value value="&quot;no&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;exponential 1&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-without-hybridization">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-predators-per-group">
+      <value value="60"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
