@@ -99,10 +99,11 @@ to reprodution-cicadas
             let y ticks-a-year
             if c-one-year-cycles?
                [set y 0]
-            ifelse random 100 < 50 and (lf-duration-ticks - n) > y
-               [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+            ifelse random 100 < 50
+               [if (lf-duration-ticks - n) > y
+                   [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]]
                [set lf-duration-ticks (lf-duration-ticks + n)]
-               ]
+              ]
         ]
         ]
       ]
@@ -169,10 +170,11 @@ to reproduction-predators
             if type-of-mutation = "5 years"
                [set n (5 * ticks-a-year)]
             let y ticks-a-year
-            if p-one-year-cycles?
+            if p-one-year-cycles? ;; if it's possible to be 1 year lifecycles, set y to 0
                [set y 0]
-            ifelse random 100 < 50 and (lf-duration-ticks - n) > y
-               [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+            ifelse random 100 < 50
+               [if (lf-duration-ticks - n) > y
+                   [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]]
                [set lf-duration-ticks (lf-duration-ticks + n)]
                ]
         ]
@@ -308,10 +310,10 @@ higher-duration
 Number
 
 PLOT
-9
-293
-337
-458
+2
+307
+330
+472
 Cicadas Lifecycle's Duration
 Duration
 Number of Cicadas
@@ -326,10 +328,10 @@ PENS
 "default" 1.0 1 -13840069 true "" "histogram ([lf-duration-ticks / ticks-a-year ] of cicadas)"
 
 MONITOR
-201
-76
-318
-121
+192
+69
+309
+114
 Number of Cicadas
 count cicadas
 17
@@ -342,7 +344,7 @@ INPUTBOX
 162
 250
 cicadas-progeny
-2
+1
 1
 0
 Number
@@ -366,13 +368,13 @@ CHOOSER
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
-0
+2
 
 CHOOSER
-331
-81
-469
-126
+334
+80
+472
+125
 predators?
 predators?
 "no" "yes"
@@ -474,10 +476,10 @@ max-cicadas-eaten-per-predator
 Number
 
 SWITCH
-315
-259
-540
-292
+325
+254
+519
+287
 mutation-without-hybridization
 mutation-without-hybridization
 0
@@ -485,15 +487,15 @@ mutation-without-hybridization
 -1000
 
 SLIDER
-341
-303
-513
-336
+337
+302
+509
+335
 mutation-rate
 mutation-rate
 0
 100
-45.9
+13.4
 0.1
 1
 NIL
@@ -506,7 +508,7 @@ SWITCH
 63
 p-one-year-cycles?
 p-one-year-cycles?
-1
+0
 1
 -1000
 
@@ -520,6 +522,16 @@ c-one-year-cycles?
 0
 1
 -1000
+
+TEXTBOX
+74
+13
+224
+31
+NIL
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -1671,6 +1683,65 @@ NetLogo 5.2.1
     </enumeratedValueSet>
     <enumeratedValueSet variable="n-predators-per-group">
       <value value="60"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Experiment 1 Hybrid" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>count turtles</metric>
+    <enumeratedValueSet variable="c-one-year-cycles?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators?">
+      <value value="&quot;no&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-rate">
+      <value value="45.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="type-of-mutation">
+      <value value="&quot;random-1-to-5&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ticks-a-year">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lower-duration-p">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mutation-without-hybridization">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="p-one-year-cycles?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-cicadas-per-group">
+      <value value="300"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="higher-duration">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-eaten-per-predator">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cicadas-progeny">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="n-predators-per-group">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-predators-per-cycle">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="predators-progeny">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-cicadas-per-cycle">
+      <value value="300"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
