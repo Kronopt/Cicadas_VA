@@ -1,16 +1,15 @@
 import matplotlib.pyplot as plt
-# from sys import argv
 
-# filename = argv[1]
+# linha, no ficheiro csv, onde está a informação que se quer utilizar
+n = 27
 
 
-# dataf = open(filename, 'r')
-
-for c in range(13, 22):
-    dataf = open('Hybrid Theory\Results\Experiments 13 - 15\Spreadsheets\cicadas-hybrid Experiment ' + str(c) + '.csv', 'r')
+for c in [26, 27]:
+    # abre ficheiro csv, correspondentes aos resultados de um Experiment
+    dataf = open('Hybrid + Predator\Results\Experiments 26 - 27\Spreadsheets\cicadas-hybrid-predators Experiment ' + str(c) + '.csv', 'r')
     data = dataf.readlines()
 
-    data = data[17][2:-1].split('","')
+    data = data[n-1][2:-1].split('","')
 
     result_hist = []
 
@@ -27,15 +26,17 @@ for c in range(13, 22):
             minduration = min(plot_data)
 
             plt.clf()
+            print plot_data
             plt.hist(plot_data, bins=maxduration)
             plt.xlabel('Lifecycle duration (years)')
             plt.ylabel('Number of Cicadas')
             plt.xticks(range(minduration, maxduration + 1))
-            plt.savefig('Hybrid Theory\Results\Experiments 13 - 15\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
+            # guarda o gráfico correspondente a esta run
+            plt.savefig('Hybrid + Predator\Results\Experiments 26 - 27\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
             result_hist.append(plot_data)
         except ValueError:
             plt.clf()
-            plt.savefig('Hybrid Theory\Results\Experiments 13 - 15\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
+            plt.savefig('Hybrid + Predator\Results\Experiments 26 - 27\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
 
     result_hist = map((lambda x: list(set(x))), result_hist)
     result_hist = [x[0] for x in result_hist if len(x) == 1]
@@ -49,6 +50,7 @@ for c in range(13, 22):
     plt.suptitle('n =' + str(n) + ' Winner =' + str(m), fontsize=12)
     plt.xlabel('Lifecycle duration (years)')
     plt.ylabel('Frequency')
-    plt.savefig('Hybrid Theory\Results\Experiments 13 - 15\Plots\Experiment ' + str(c) + '.png')
+    # guarda o gráfico que corresponde à sumarização de todas as runs
+    plt.savefig('Hybrid + Predator\Results\Experiments 26 - 27\Plots\Experiment ' + str(c) + '.png')
 
     dataf.close()
