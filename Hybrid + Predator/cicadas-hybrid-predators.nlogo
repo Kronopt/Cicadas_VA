@@ -96,9 +96,12 @@ to reprodution-cicadas
                [set n ((ceiling random-exponential 1) * ticks-a-year)]
             if type-of-mutation = "5 years"
                [set n (5 * ticks-a-year)]
-            ifelse random 100 < 50
-               [set lf-duration-ticks (lf-duration-ticks + n)]
+            let y ticks-a-year
+            if c-one-year-cycles?
+               [set y 0]
+            ifelse random 100 < 50 and (lf-duration-ticks - n) > y
                [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+               [set lf-duration-ticks (lf-duration-ticks + n)]
                ]
         ]
         ]
@@ -165,9 +168,12 @@ to reproduction-predators
                [set n ((ceiling random-exponential 1) * ticks-a-year)]
             if type-of-mutation = "5 years"
                [set n (5 * ticks-a-year)]
-            ifelse random 100 < 50
-               [set lf-duration-ticks (lf-duration-ticks + n)]
+            let y ticks-a-year
+            if p-one-year-cycles?
+               [set y 0]
+            ifelse random 100 < 50 and (lf-duration-ticks - n) > y
                [if lf-duration-ticks > n [set lf-duration-ticks (lf-duration-ticks - n)]]
+               [set lf-duration-ticks (lf-duration-ticks + n)]
                ]
         ]
         ]
@@ -197,13 +203,13 @@ to-report membership-predators [vizinhos c]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-859
+862
 10
-1312
-700
+1309
+691
 20
 30
-10.805
+10.66
 1
 10
 1
@@ -240,7 +246,7 @@ INPUTBOX
 162
 190
 n-cicadas-per-group
-140
+300
 1
 0
 Number
@@ -285,7 +291,7 @@ INPUTBOX
 92
 125
 lower-duration
-12
+2
 1
 0
 Number
@@ -296,7 +302,7 @@ INPUTBOX
 185
 125
 higher-duration
-15
+2
 1
 0
 Number
@@ -336,7 +342,7 @@ INPUTBOX
 162
 250
 cicadas-progeny
-1
+2
 1
 0
 Number
@@ -347,7 +353,7 @@ INPUTBOX
 292
 193
 max-cicadas-per-cycle
-140
+300
 1
 0
 Number
@@ -360,7 +366,7 @@ CHOOSER
 type-of-mutation
 type-of-mutation
 "random-1-to-5" "1 year" "exponential 1" "no mutation" "5 years"
-2
+0
 
 CHOOSER
 331
@@ -429,9 +435,9 @@ Number
 
 PLOT
 515
-297
+293
 854
-462
+475
 Predators Lifecycle's Duration
 Duration
 Number of Predators
@@ -487,11 +493,33 @@ mutation-rate
 mutation-rate
 0
 100
-1
+45.9
 0.1
 1
 NIL
 HORIZONTAL
+
+SWITCH
+594
+30
+756
+63
+p-one-year-cycles?
+p-one-year-cycles?
+1
+1
+-1000
+
+SWITCH
+53
+28
+214
+61
+c-one-year-cycles?
+c-one-year-cycles?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
