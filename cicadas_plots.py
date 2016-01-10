@@ -35,6 +35,8 @@ for c in [26, 27]:
             # guarda o gráfico correspondente a esta run
             plt.savefig('Hybrid + Predator\Results\Experiments 26 - 27\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
             result_hist.append(plot_data)
+        # Já não me lembro para que é que isto era. Mas acho que era para quando não havia nenhumas cicadas no final da run -
+        # quando isso acontece, uma das funções atira um ValueError. Nesses casso, crio um gráfico vazio.
         except ValueError:
             plt.clf()
             plt.savefig('Hybrid + Predator\Results\Experiments 26 - 27\Plots\Experiment ' + str(c) + ' - ' + str(i + 1) + '.png')
