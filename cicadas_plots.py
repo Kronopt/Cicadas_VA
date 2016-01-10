@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 # linha, no ficheiro csv, onde está a informação que se quer utilizar
 n = 27
 
-
+# o valor c vai correspondre ao número do ficheiro. ver linha 9.
 for c in [26, 27]:
     # abre ficheiro csv, correspondentes aos resultados de um Experiment
     dataf = open('Hybrid + Predator\Results\Experiments 26 - 27\Spreadsheets\cicadas-hybrid-predators Experiment ' + str(c) + '.csv', 'r')
@@ -13,6 +13,7 @@ for c in [26, 27]:
 
     result_hist = []
 
+    # faz um gráfico por run
     for i in range(0, len(data)):
         plot_data = data[i][2:-2].split()
 
